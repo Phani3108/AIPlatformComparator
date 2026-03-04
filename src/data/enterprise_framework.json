@@ -1,0 +1,90 @@
+{
+  "categories": [
+    {
+      "id": "model_ecosystem",
+      "name": "Model Ecosystem",
+      "description": "Breadth and depth of available AI models",
+      "icon": "Hub"
+    },
+    {
+      "id": "security",
+      "name": "Security & Compliance",
+      "description": "Enterprise security certifications and controls",
+      "icon": "Security"
+    },
+    {
+      "id": "governance",
+      "name": "Governance & Responsible AI",
+      "description": "AI governance, content safety, and audit capabilities",
+      "icon": "Policy"
+    },
+    {
+      "id": "developer_productivity",
+      "name": "Developer Productivity",
+      "description": "SDKs, tooling, documentation, and developer experience",
+      "icon": "Code"
+    },
+    {
+      "id": "deployment_flexibility",
+      "name": "Deployment Flexibility",
+      "description": "Options for managed, hybrid, and custom deployments",
+      "icon": "CloudQueue"
+    },
+    {
+      "id": "observability",
+      "name": "Observability",
+      "description": "Monitoring, tracing, logging, and debugging capabilities",
+      "icon": "Visibility"
+    },
+    {
+      "id": "ecosystem_integration",
+      "name": "Ecosystem Integration",
+      "description": "Integration with the vendor's broader cloud and enterprise services",
+      "icon": "IntegrationInstructions"
+    },
+    {
+      "id": "scalability",
+      "name": "Scalability",
+      "description": "Ability to handle growing workloads and traffic",
+      "icon": "TrendingUp"
+    },
+    {
+      "id": "cost_predictability",
+      "name": "Cost Predictability",
+      "description": "Pricing transparency and ability to forecast costs",
+      "icon": "AttachMoney"
+    },
+    {
+      "id": "model_evaluation",
+      "name": "Model Evaluation Tooling",
+      "description": "Tools for evaluating model quality, safety, and performance",
+      "icon": "Assessment"
+    },
+    {
+      "id": "data_integration",
+      "name": "Data Integration",
+      "description": "Native integration with data warehouses and pipelines",
+      "icon": "Storage"
+    },
+    {
+      "id": "multi_region",
+      "name": "Multi-Region Support",
+      "description": "Data residency, regional deployment, and disaster recovery",
+      "icon": "Public"
+    }
+  ],
+  "dimension_labels": {
+    "model_ecosystem": "Model Ecosystem",
+    "security": "Security & Compliance",
+    "governance": "Governance",
+    "developer_productivity": "Developer Productivity",
+    "deployment_flexibility": "Deployment Flexibility",
+    "observability": "Observability",
+    "ecosystem_integration": "Ecosystem Integration",
+    "scalability": "Scalability",
+    "cost_predictability": "Cost Predictability",
+    "model_evaluation": "Evaluation Tooling",
+    "data_integration": "Data Integration",
+    "multi_region": "Multi-Region"
+  }
+}

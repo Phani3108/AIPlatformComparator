@@ -1,0 +1,182 @@
+{
+  "chatbot": {
+    "vertex_ai": {
+      "llm": "Vertex AI Gemini",
+      "embeddings": "Vertex AI Embeddings",
+      "orchestration": "Vertex AI Agent Builder",
+      "app_layer": "Cloud Run",
+      "identity": "Firebase Auth / IAP",
+      "monitoring": "Cloud Monitoring + Vertex Experiments",
+      "analytics": "BigQuery"
+    },
+    "azure_openai": {
+      "llm": "Azure OpenAI (GPT-4o)",
+      "embeddings": "Azure OpenAI Embeddings",
+      "orchestration": "Copilot Studio",
+      "app_layer": "Azure Container Apps",
+      "identity": "Azure AD / Entra ID",
+      "monitoring": "Azure Monitor + App Insights",
+      "analytics": "Azure Synapse"
+    },
+    "aws_bedrock": {
+      "llm": "AWS Bedrock (Claude / Titan)",
+      "embeddings": "Bedrock Titan Embeddings",
+      "orchestration": "Bedrock Agents",
+      "app_layer": "Lambda / ECS",
+      "identity": "Cognito / IAM",
+      "monitoring": "CloudWatch",
+      "analytics": "Redshift"
+    }
+  },
+  "rag": {
+    "vertex_ai": {
+      "llm": "Vertex AI Gemini",
+      "embeddings": "Vertex AI Embeddings",
+      "vector_db": "Vertex AI Vector Search",
+      "orchestration": "Vertex AI Agent Builder",
+      "app_layer": "Cloud Run",
+      "data_pipeline": "Dataflow",
+      "analytics": "BigQuery",
+      "monitoring": "Cloud Monitoring"
+    },
+    "azure_openai": {
+      "llm": "Azure OpenAI (GPT-4o)",
+      "embeddings": "Azure OpenAI Embeddings",
+      "vector_db": "Azure AI Search",
+      "orchestration": "Semantic Kernel",
+      "app_layer": "Azure Container Apps",
+      "data_pipeline": "Azure Data Factory",
+      "analytics": "Azure Synapse",
+      "monitoring": "Azure Monitor"
+    },
+    "aws_bedrock": {
+      "llm": "AWS Bedrock (Claude / Titan)",
+      "embeddings": "Bedrock Titan Embeddings",
+      "vector_db": "OpenSearch Serverless",
+      "orchestration": "Bedrock Knowledge Bases",
+      "app_layer": "Lambda / ECS",
+      "data_pipeline": "AWS Glue",
+      "analytics": "Redshift / Athena",
+      "monitoring": "CloudWatch"
+    }
+  },
+  "agent": {
+    "vertex_ai": {
+      "llm": "Vertex AI Gemini",
+      "agent_framework": "Vertex AI Agent Builder",
+      "tools": "Cloud Functions + Extensions",
+      "orchestration": "Vertex AI Reasoning Engine",
+      "app_layer": "Cloud Run",
+      "state_store": "Firestore",
+      "monitoring": "Cloud Trace + Monitoring",
+      "analytics": "BigQuery"
+    },
+    "azure_openai": {
+      "llm": "Azure OpenAI (GPT-4o)",
+      "agent_framework": "Azure AI Agent Service",
+      "tools": "Azure Functions + Logic Apps",
+      "orchestration": "Semantic Kernel",
+      "app_layer": "Azure Container Apps",
+      "state_store": "Cosmos DB",
+      "monitoring": "Application Insights",
+      "analytics": "Azure Synapse"
+    },
+    "aws_bedrock": {
+      "llm": "AWS Bedrock (Claude)",
+      "agent_framework": "Bedrock Agents",
+      "tools": "Lambda Functions + Step Functions",
+      "orchestration": "Bedrock Agent Orchestration",
+      "app_layer": "ECS / Fargate",
+      "state_store": "DynamoDB",
+      "monitoring": "CloudWatch + X-Ray",
+      "analytics": "Redshift"
+    }
+  },
+  "multimodal": {
+    "vertex_ai": {
+      "llm": "Vertex AI Gemini (multimodal)",
+      "vision": "Vertex AI Vision",
+      "embeddings": "Vertex AI Multimodal Embeddings",
+      "storage": "Cloud Storage",
+      "app_layer": "Cloud Run",
+      "processing": "Dataflow",
+      "analytics": "BigQuery"
+    },
+    "azure_openai": {
+      "llm": "Azure OpenAI GPT-4o (multimodal)",
+      "vision": "Azure AI Vision",
+      "embeddings": "Azure OpenAI Embeddings",
+      "storage": "Azure Blob Storage",
+      "app_layer": "Azure Container Apps",
+      "processing": "Azure Data Factory",
+      "analytics": "Azure Synapse"
+    },
+    "aws_bedrock": {
+      "llm": "AWS Bedrock Claude (multimodal)",
+      "vision": "Amazon Rekognition",
+      "embeddings": "Bedrock Titan Embeddings",
+      "storage": "S3",
+      "app_layer": "Lambda / ECS",
+      "processing": "AWS Glue",
+      "analytics": "Redshift"
+    }
+  },
+  "fine_tuned": {
+    "vertex_ai": {
+      "base_model": "Vertex AI Gemini / PaLM",
+      "training": "Vertex AI Training",
+      "tuning": "Vertex AI Supervised Tuning",
+      "evaluation": "Vertex AI Model Evaluation",
+      "serving": "Vertex AI Endpoints",
+      "registry": "Vertex AI Model Registry",
+      "monitoring": "Vertex AI Model Monitoring"
+    },
+    "azure_openai": {
+      "base_model": "Azure OpenAI GPT-4o",
+      "training": "Azure OpenAI Fine-tuning",
+      "tuning": "Azure ML Training Pipelines",
+      "evaluation": "Azure ML Evaluation",
+      "serving": "Azure OpenAI Endpoints",
+      "registry": "Azure ML Model Registry",
+      "monitoring": "Azure Monitor"
+    },
+    "aws_bedrock": {
+      "base_model": "Bedrock Custom Models",
+      "training": "SageMaker Training Jobs",
+      "tuning": "Bedrock Custom Model Import",
+      "evaluation": "SageMaker Clarify",
+      "serving": "Bedrock / SageMaker Endpoints",
+      "registry": "SageMaker Model Registry",
+      "monitoring": "SageMaker Model Monitor"
+    }
+  },
+  "copilot": {
+    "vertex_ai": {
+      "llm": "Vertex AI Gemini",
+      "context": "Vertex AI Grounding",
+      "agent_framework": "Vertex AI Agent Builder",
+      "app_layer": "Cloud Run",
+      "identity": "Firebase Auth / IAP",
+      "search": "Vertex AI Search",
+      "analytics": "BigQuery"
+    },
+    "azure_openai": {
+      "llm": "Azure OpenAI GPT-4o",
+      "context": "Azure AI Search + Grounding",
+      "agent_framework": "Copilot Studio",
+      "app_layer": "Azure Container Apps",
+      "identity": "Azure AD / Entra ID",
+      "search": "Azure AI Search",
+      "analytics": "Azure Synapse"
+    },
+    "aws_bedrock": {
+      "llm": "AWS Bedrock (Claude / Titan)",
+      "context": "Bedrock Knowledge Bases",
+      "agent_framework": "Bedrock Agents",
+      "app_layer": "Lambda / ECS",
+      "identity": "Cognito / IAM",
+      "search": "Kendra",
+      "analytics": "Redshift"
+    }
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "capabilities": [
+    {
+      "id": "rag_tooling",
+      "name": "RAG Tooling",
+      "category": "Core AI",
+      "vertex_ai": { "supported": true, "maturity": "GA", "notes": "Vertex AI Agent Builder with grounding" },
+      "azure_openai": { "supported": true, "maturity": "GA", "notes": "Azure AI Search with hybrid retrieval" },
+      "aws_bedrock": { "supported": true, "maturity": "GA", "notes": "Knowledge Bases for Amazon Bedrock" }
+    },
+    {
+      "id": "vector_db_native",
+      "name": "Native Vector Database",
+      "category": "Core AI",
+      "vertex_ai": { "supported": true, "maturity": "GA", "notes": "Vertex AI Vector Search (ScaNN-based)" },
+      "azure_openai": { "supported": true, "maturity": "GA", "notes": "Azure AI Search vector index" },
+      "aws_bedrock": { "supported": false, "maturity": "N/A", "notes": "Requires OpenSearch Serverless (separate service)" }
+    },
+    {
+      "id": "fine_tuning",
+      "name": "Model Fine-Tuning",
+      "category": "Core AI",
+      "vertex_ai": { "supported": true, "maturity": "GA", "notes": "Supervised tuning for Gemini models" },
+      "azure_openai": { "supported": true, "maturity": "GA", "notes": "Fine-tuning for GPT-4o and GPT-4o-mini" },
+      "aws_bedrock": { "supported": true, "maturity": "GA", "notes": "Custom model import + continued pre-training" }
+    },
+    {
+      "id": "multimodal_models",
+      "name": "Multimodal Models",
+      "category": "Core AI",
+      "vertex_ai": { "supported": true, "maturity": "GA", "notes": "Gemini natively multimodal (text, image, video, audio)" },
+      "azure_openai": { "supported": true, "maturity": "GA", "notes": "GPT-4o multimodal (text, image)" },
+      "aws_bedrock": { "supported": true, "maturity": "GA", "notes": "Claude 3 multimodal (text, image)" }
+    },
+    {
+      "id": "agent_frameworks",
+      "name": "Agent Frameworks",
+      "category": "Core AI",
+      "vertex_ai": { "supported": true, "maturity": "GA", "notes": "Vertex AI Agent Builder + ADK" },
+      "azure_openai": { "supported": true, "maturity": "GA", "notes": "Azure AI Agent Service + Copilot Studio" },
+      "aws_bedrock": { "supported": true, "maturity": "GA", "notes": "Bedrock Agents with action groups" }
+    },
+    {
+      "id": "evaluation_tooling",
+      "name": "Model Evaluation Tooling",
+      "category": "MLOps",
+      "vertex_ai": { "supported": true, "maturity": "GA", "notes": "Vertex AI Evaluation with auto-metrics and human eval" },
+      "azure_openai": { "supported": false, "maturity": "Preview", "notes": "Azure AI Evaluation (limited preview)" },
+      "aws_bedrock": { "supported": false, "maturity": "Preview", "notes": "Bedrock Model Evaluation (limited)" }
+    },
+    {
+      "id": "enterprise_governance",
+      "name": "Enterprise Governance",
+      "category": "Enterprise",
+      "vertex_ai": { "supported": true, "maturity": "GA", "notes": "VPC-SC, CMEK, audit logging" },
+      "azure_openai": { "supported": true, "maturity": "GA", "notes": "Azure Policy, Purview, RBAC, private endpoints" },
+      "aws_bedrock": { "supported": true, "maturity": "GA", "notes": "IAM, VPC endpoints, CloudTrail" }
+    },
+    {
+      "id": "responsible_ai",
+      "name": "Responsible AI & Safety",
+      "category": "Enterprise",
+      "vertex_ai": { "supported": true, "maturity": "GA", "notes": "Safety filters, grounding, PII detection" },
+      "azure_openai": { "supported": true, "maturity": "GA", "notes": "Content Safety, jailbreak detection, prompt shields" },
+      "aws_bedrock": { "supported": true, "maturity": "GA", "notes": "Guardrails for Bedrock with topic/content filters" }
+    },
+    {
+      "id": "data_integration",
+      "name": "Data Platform Integration",
+      "category": "Integration",
+      "vertex_ai": { "supported": true, "maturity": "GA", "notes": "Native BigQuery, Dataflow, Pub/Sub integration" },
+      "azure_openai": { "supported": true, "maturity": "GA", "notes": "Synapse, Data Factory, Fabric integration" },
+      "aws_bedrock": { "supported": true, "maturity": "GA", "notes": "S3, Glue, Redshift, Athena integration" }
+    },
+    {
+      "id": "model_monitoring",
+      "name": "Model Monitoring",
+      "category": "MLOps",
+      "vertex_ai": { "supported": true, "maturity": "GA", "notes": "Vertex AI Model Monitoring with drift detection" },
+      "azure_openai": { "supported": true, "maturity": "GA", "notes": "Azure Monitor + Application Insights" },
+      "aws_bedrock": { "supported": true, "maturity": "GA", "notes": "CloudWatch + SageMaker Model Monitor" }
+    },
+    {
+      "id": "model_marketplace",
+      "name": "Model Marketplace / Garden",
+      "category": "Core AI",
+      "vertex_ai": { "supported": true, "maturity": "GA", "notes": "Model Garden with 150+ models" },
+      "azure_openai": { "supported": true, "maturity": "GA", "notes": "Azure AI Model Catalog" },
+      "aws_bedrock": { "supported": true, "maturity": "GA", "notes": "Bedrock model marketplace with broadest selection" }
+    },
+    {
+      "id": "low_code_builder",
+      "name": "Low-Code / No-Code Builder",
+      "category": "Developer",
+      "vertex_ai": { "supported": true, "maturity": "GA", "notes": "Vertex AI Studio, Agent Builder console" },
+      "azure_openai": { "supported": true, "maturity": "GA", "notes": "Copilot Studio, Azure AI Foundry" },
+      "aws_bedrock": { "supported": true, "maturity": "GA", "notes": "Bedrock Playground, PartyRock" }
+    },
+    {
+      "id": "prompt_management",
+      "name": "Prompt Management",
+      "category": "Developer",
+      "vertex_ai": { "supported": true, "maturity": "GA", "notes": "Vertex AI Prompt Management" },
+      "azure_openai": { "supported": true, "maturity": "Preview", "notes": "Prompt flow in Azure AI Foundry" },
+      "aws_bedrock": { "supported": true, "maturity": "GA", "notes": "Bedrock Prompt Management" }
+    },
+    {
+      "id": "grounding",
+      "name": "Grounding / Search Integration",
+      "category": "Core AI",
+      "vertex_ai": { "supported": true, "maturity": "GA", "notes": "Google Search grounding + enterprise data grounding" },
+      "azure_openai": { "supported": true, "maturity": "GA", "notes": "On Your Data with Azure AI Search" },
+      "aws_bedrock": { "supported": true, "maturity": "GA", "notes": "Knowledge Bases with S3/web connectors" }
+    }
+  ]
+}

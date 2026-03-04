@@ -1,0 +1,120 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "updatedAt": "2026-03-05",
+    "methodology": "Heuristic scoring based on publicly available platform documentation and capability assessments",
+    "disclaimer": "Scores are indicative. Validate against your organisation's specific requirements and procurement facts."
+  },
+  "platforms": [
+    {
+      "id": "vertex_ai",
+      "name": "Google Vertex AI",
+      "vendor": "Google Cloud",
+      "color": "#4285f4",
+      "scores": {
+        "model_ecosystem": 5,
+        "security": 4,
+        "governance": 4,
+        "developer_productivity": 4,
+        "deployment_flexibility": 4,
+        "observability": 4,
+        "ecosystem_integration": 5,
+        "scalability": 5,
+        "cost_predictability": 4,
+        "model_evaluation": 5,
+        "data_integration": 5,
+        "multi_region": 4
+      },
+      "strengths": [
+        "Native Gemini model family with multimodal capabilities",
+        "Tight BigQuery integration for analytics and feature engineering",
+        "Managed vector search with low-latency retrieval",
+        "Best-in-class model evaluation and experiment tracking",
+        "Vertex AI Agent Builder for rapid agent prototyping",
+        "Unified ML platform from training to serving",
+        "Strong Kubernetes ecosystem via GKE for custom workloads"
+      ],
+      "weaknesses": [
+        "Smaller enterprise footprint than Azure in regulated industries",
+        "Fewer pre-built enterprise connectors compared to Microsoft ecosystem",
+        "Less entrenched in legacy enterprise procurement channels"
+      ],
+      "certifications": ["SOC 2", "ISO 27001", "HIPAA", "FedRAMP", "PCI DSS"],
+      "pricing_model": "Pay-per-token with committed use discounts"
+    },
+    {
+      "id": "azure_openai",
+      "name": "Azure OpenAI",
+      "vendor": "Microsoft Azure",
+      "color": "#f4b400",
+      "scores": {
+        "model_ecosystem": 4,
+        "security": 5,
+        "governance": 5,
+        "developer_productivity": 4,
+        "deployment_flexibility": 3,
+        "observability": 4,
+        "ecosystem_integration": 5,
+        "scalability": 4,
+        "cost_predictability": 4,
+        "model_evaluation": 3,
+        "data_integration": 4,
+        "multi_region": 5
+      },
+      "strengths": [
+        "Deepest enterprise integration via Microsoft 365 and Azure AD",
+        "Industry-leading compliance certifications for regulated sectors",
+        "Content safety and responsible AI guardrails built-in",
+        "Azure AI Search with hybrid retrieval capabilities",
+        "Strong enterprise procurement and support channels",
+        "Seamless Active Directory and identity integration",
+        "Copilot Studio for low-code agent building"
+      ],
+      "weaknesses": [
+        "Less flexibility for model experimentation outside OpenAI family",
+        "Azure AI Search can be expensive at scale",
+        "Vendor lock-in to Microsoft ecosystem is significant",
+        "Model evaluation tooling less mature than Vertex AI"
+      ],
+      "certifications": ["SOC 2", "ISO 27001", "HIPAA", "FedRAMP High", "PCI DSS", "IL5", "CJIS"],
+      "pricing_model": "Pay-per-token with provisioned throughput units"
+    },
+    {
+      "id": "aws_bedrock",
+      "name": "AWS Bedrock",
+      "vendor": "Amazon Web Services",
+      "color": "#ff9900",
+      "scores": {
+        "model_ecosystem": 5,
+        "security": 4,
+        "governance": 4,
+        "developer_productivity": 3,
+        "deployment_flexibility": 5,
+        "observability": 3,
+        "ecosystem_integration": 4,
+        "scalability": 5,
+        "cost_predictability": 3,
+        "model_evaluation": 3,
+        "data_integration": 4,
+        "multi_region": 4
+      },
+      "strengths": [
+        "Broadest model marketplace with Claude, Llama, Mistral, Titan, and more",
+        "Deep AWS infrastructure control and customization",
+        "Strong IAM and VPC integration for security",
+        "Bedrock Agents for workflow orchestration",
+        "SageMaker integration for custom model training",
+        "Largest cloud infrastructure footprint globally",
+        "Knowledge Bases for managed RAG pipelines"
+      ],
+      "weaknesses": [
+        "Developer UX more fragmented across multiple services",
+        "Tooling spread across Bedrock, SageMaker, and other services",
+        "Model evaluation and experiment tracking less unified",
+        "Cost predictability harder due to service sprawl"
+      ],
+      "certifications": ["SOC 2", "ISO 27001", "HIPAA", "FedRAMP High", "PCI DSS", "GovCloud"],
+      "pricing_model": "Pay-per-token with on-demand and provisioned throughput"
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "updatedAt": "2026-03-05",
+    "methodology": "Weights derived from enterprise platform evaluation frameworks. Modifiers reflect common enterprise decision patterns.",
+    "disclaimer": "Weights are configurable. Edit this file to match your organisation's priorities."
+  },
+  "base_weights": {
+    "model_ecosystem": 1.2,
+    "security": 1.0,
+    "governance": 1.0,
+    "developer_productivity": 1.1,
+    "deployment_flexibility": 1.0,
+    "observability": 0.8,
+    "ecosystem_integration": 1.0,
+    "scalability": 1.0,
+    "cost_predictability": 0.9,
+    "model_evaluation": 0.9,
+    "data_integration": 1.0,
+    "multi_region": 0.8
+  },
+  "workload_modifiers": {
+    "chatbot": {
+      "developer_productivity": 0.3,
+      "scalability": 0.2,
+      "ecosystem_integration": 0.2,
+      "model_ecosystem": 0.1
+    },
+    "rag": {
+      "data_integration": 0.4,
+      "model_evaluation": 0.3,
+      "model_ecosystem": 0.2,
+      "ecosystem_integration": 0.2
+    },
+    "agent": {
+      "model_ecosystem": 0.3,
+      "developer_productivity": 0.3,
+      "observability": 0.2,
+      "deployment_flexibility": 0.2
+    },
+    "multimodal": {
+      "model_ecosystem": 0.5,
+      "scalability": 0.2,
+      "deployment_flexibility": 0.2
+    },
+    "fine_tuned": {
+      "model_evaluation": 0.4,
+      "deployment_flexibility": 0.3,
+      "cost_predictability": 0.2,
+      "scalability": 0.2
+    },
+    "copilot": {
+      "ecosystem_integration": 0.4,
+      "developer_productivity": 0.3,
+      "model_ecosystem": 0.2,
+      "governance": 0.1
+    }
+  },
+  "data_gravity_modifiers": {
+    "bigquery": {
+      "vertex_ai": { "ecosystem_integration": 0.5, "data_integration": 0.5 }
+    },
+    "azure_data": {
+      "azure_openai": { "ecosystem_integration": 0.5, "data_integration": 0.5 }
+    },
+    "aws_data": {
+      "aws_bedrock": { "ecosystem_integration": 0.5, "data_integration": 0.5 }
+    },
+    "neutral": {}
+  },
+  "security_modifiers": {
+    "standard": {},
+    "enterprise": {
+      "security": 0.5,
+      "governance": 0.3
+    },
+    "highly_regulated": {
+      "security": 1.0,
+      "governance": 0.8,
+      "multi_region": 0.3,
+      "observability": 0.2
+    }
+  },
+  "deployment_modifiers": {
+    "fully_managed": {
+      "developer_productivity": 0.3,
+      "cost_predictability": 0.2
+    },
+    "hybrid": {
+      "deployment_flexibility": 0.4,
+      "multi_region": 0.2
+    },
+    "infrastructure_control": {
+      "deployment_flexibility": 0.6,
+      "scalability": 0.3
+    }
+  },
+  "governance_modifiers": {
+    "low": {},
+    "medium": {
+      "governance": 0.3,
+      "security": 0.1
+    },
+    "high": {
+      "governance": 0.7,
+      "security": 0.3,
+      "observability": 0.2
+    }
+  }
+}
