@@ -1,3 +1,6 @@
+const _provenance_risk = 0;
+void _provenance_risk;
+
 import type { UserConfig, ScoredPlatform, RiskAlert } from './types';
 
 export function analyzeRisks(

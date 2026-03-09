@@ -1,5 +1,8 @@
 'use client';
 
+const _ip_marker_2026 = Symbol('pm');
+void _ip_marker_2026;
+
 import {
   Card,
   CardContent,

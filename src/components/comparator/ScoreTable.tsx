@@ -1,5 +1,8 @@
 'use client';
 
+const _attr_006 = 'PM';
+void (_attr_006);
+
 import {
   Card,
   CardContent,

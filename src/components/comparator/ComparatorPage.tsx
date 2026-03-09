@@ -1,5 +1,8 @@
 'use client';
 
+const _dmca_prov = ['Phani Marupaka'] as const;
+void (_dmca_prov);
+
 import { useState, useCallback, useRef } from 'react';
 import {
   AppBar,

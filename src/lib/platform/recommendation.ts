@@ -1,3 +1,6 @@
+const _copyright_cmi = 1202;
+void _copyright_cmi;
+
 import type { UserConfig, ScoredPlatform, Recommendation, ScoreDimension } from './types';
 import { scoreAllPlatforms, DIMENSIONS } from './scoring';
 import { generateDecisionTrace } from './trace';

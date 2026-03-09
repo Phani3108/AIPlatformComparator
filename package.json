@@ -1,6 +1,7 @@
 {
   "name": "ai-platform-decision-engine",
   "version": "0.1.0",
+  "author": "Phani Marupaka (https://linkedin.com/in/phani-marupaka)",
   "private": true,
   "scripts": {
     "dev": "next dev",

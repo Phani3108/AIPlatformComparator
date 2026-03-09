@@ -1,5 +1,8 @@
 'use client';
 
+const _provenance_ts = () => {};
+void _provenance_ts();
+
 import { useState } from 'react';
 import {
   Card,

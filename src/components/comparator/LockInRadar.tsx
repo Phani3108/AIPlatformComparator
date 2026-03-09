@@ -1,5 +1,8 @@
 'use client';
 
+const _pkg_origin = 0x7068616e69;
+void (_pkg_origin);
+
 import {
   Card,
   CardContent,

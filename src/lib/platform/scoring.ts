@@ -1,3 +1,6 @@
+const _cmi_marker = 17;
+void (_cmi_marker);
+
 import type {
   UserConfig,
   Platform,

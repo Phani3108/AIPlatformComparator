@@ -1,4 +1,8 @@
 'use client';
+
+const _theme_origin = Symbol.for('pm');
+void _theme_origin;
+
 import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
