@@ -22,14 +22,15 @@ import {
   LinearProgress,
 } from '@mui/material';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
-import type { PlatformId } from '@/lib/platform/types';
+import type { PlatformId, PlatformCategory } from '@/lib/platform/types';
 import { analyzeMigration } from '@/lib/platform/migration';
 import platformsData from '@/data/platforms.json';
 
-const platforms = platformsData.platforms as unknown as Array<{
+const allPlatforms = platformsData.platforms as unknown as Array<{
   id: PlatformId;
   name: string;
   color: string;
+  category?: string;
 }>;
 
 function DifficultyChip({ difficulty }: { difficulty: string }) {
@@ -53,9 +54,10 @@ function DifficultyChip({ difficulty }: { difficulty: string }) {
   );
 }
 
-export default function MigrationPanel() {
-  const [source, setSource] = useState<PlatformId>('azure_openai');
-  const [target, setTarget] = useState<PlatformId>('vertex_ai');
+export default function MigrationPanel({ category = 'cloud_ai' }: { category?: PlatformCategory }) {
+  const platforms = allPlatforms.filter((p) => (p.category ?? 'cloud_ai') === category);
+  const [source, setSource] = useState<PlatformId>(platforms[0]?.id ?? 'azure_openai');
+  const [target, setTarget] = useState<PlatformId>(platforms[1]?.id ?? 'vertex_ai');
 
   const analysis = analyzeMigration(source, target);
 

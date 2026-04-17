@@ -20,14 +20,15 @@ import {
 } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
-import type { PlatformId, Capability, CapabilityEntry } from '@/lib/platform/types';
-import { getCapabilitiesByCategory, computeCoverageScore } from '@/lib/platform/coverage';
+import type { PlatformId, PlatformCategory, Capability, CapabilityEntry } from '@/lib/platform/types';
+import { getCapabilitiesByCategory, computeCoverageScore, getPlatformCapabilityEntry } from '@/lib/platform/coverage';
 import platformsData from '@/data/platforms.json';
 
-const platforms = platformsData.platforms as unknown as Array<{
+const allPlatforms = platformsData.platforms as unknown as Array<{
   id: PlatformId;
   name: string;
   color: string;
+  category?: string;
 }>;
 
 function SupportCell({ entry }: { entry: CapabilityEntry }) {
@@ -47,8 +48,9 @@ function SupportCell({ entry }: { entry: CapabilityEntry }) {
   );
 }
 
-export default function CapabilityMatrix() {
-  const grouped = getCapabilitiesByCategory();
+export default function CapabilityMatrix({ category = 'cloud_ai' }: { category?: PlatformCategory }) {
+  const platforms = allPlatforms.filter((p) => (p.category ?? 'cloud_ai') === category);
+  const grouped = getCapabilitiesByCategory(category);
   const categories = Object.keys(grouped);
 
   return (
@@ -63,7 +65,7 @@ export default function CapabilityMatrix() {
           </Box>
           <Box sx={{ display: 'flex', gap: 0.5 }}>
             {platforms.map((p) => {
-              const cov = computeCoverageScore(p.id);
+              const cov = computeCoverageScore(p.id, category);
               return (
                 <Chip
                   key={p.id}
@@ -79,10 +81,10 @@ export default function CapabilityMatrix() {
         <TableContainer>
           <Table size="small" sx={{ tableLayout: 'fixed' }}>
             <colgroup>
-              <col style={{ width: '34%' }} />
-              <col style={{ width: '22%' }} />
-              <col style={{ width: '22%' }} />
-              <col style={{ width: '22%' }} />
+              <col style={{ width: `${Math.max(20, 100 - platforms.length * 16)}%` }} />
+              {platforms.map((p) => (
+                <col key={p.id} style={{ width: `${Math.floor(80 / platforms.length)}%` }} />
+              ))}
             </colgroup>
             <TableHead>
               <TableRow>
@@ -99,7 +101,7 @@ export default function CapabilityMatrix() {
                 <React.Fragment key={cat}>
                   <TableRow>
                     <TableCell
-                      colSpan={4}
+                      colSpan={platforms.length + 1}
                       sx={{
                         bgcolor: '#f8f9fa',
                         fontWeight: 700,
@@ -118,11 +120,14 @@ export default function CapabilityMatrix() {
                       <TableCell>
                         <Typography variant="body2">{cap.name}</Typography>
                       </TableCell>
-                      {platforms.map((p) => (
-                        <TableCell key={p.id} align="center">
-                          <SupportCell entry={cap[p.id]} />
-                        </TableCell>
-                      ))}
+                      {platforms.map((p) => {
+                        const entry = getPlatformCapabilityEntry(cap, p.id);
+                        return (
+                          <TableCell key={p.id} align="center">
+                            <SupportCell entry={entry} />
+                          </TableCell>
+                        );
+                      })}
                     </TableRow>
                   ))}
                 </React.Fragment>

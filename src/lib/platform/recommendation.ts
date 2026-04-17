@@ -1,8 +1,8 @@
 const _copyright_cmi = 1202;
 void _copyright_cmi;
 
-import type { UserConfig, ScoredPlatform, Recommendation, ScoreDimension } from './types';
-import { scoreAllPlatforms, DIMENSIONS } from './scoring';
+import type { UserConfig, ScoredPlatform, Recommendation, ScoreDimension, PlatformCategory } from './types';
+import { scoreAllPlatforms, getDimensionsForCategory } from './scoring';
 import { generateDecisionTrace } from './trace';
 import { generatePortabilityPlan } from './portability';
 import frameworkData from '@/data/enterprise_framework.json';
@@ -12,14 +12,16 @@ const DIMENSION_LABELS = frameworkData.dimension_labels as Record<ScoreDimension
 function generateExplanation(
   config: UserConfig,
   scored: ScoredPlatform[],
+  category: PlatformCategory,
 ): string {
   const primary = scored[0];
   const secondary = scored[1];
+  const dims = getDimensionsForCategory(category);
 
-  const topDimensions = [...DIMENSIONS]
+  const topDimensions = [...dims]
     .sort(
       (a, b) =>
-        primary.dimensionScores[b].weighted - primary.dimensionScores[a].weighted,
+        (primary.dimensionScores[b]?.weighted ?? 0) - (primary.dimensionScores[a]?.weighted ?? 0),
     )
     .slice(0, 3);
 
@@ -34,6 +36,7 @@ function generateExplanation(
     multimodal: 'multimodal AI',
     fine_tuned: 'fine-tuned model deployment',
     copilot: 'AI copilot',
+    computer_use: 'computer-use agent',
   };
 
   const gravityLabels: Record<string, string> = {
@@ -47,8 +50,19 @@ function generateExplanation(
     `Based on your ${workloadLabels[config.workloadType]} workload`,
   ];
 
-  if (config.dataGravity !== 'neutral') {
+  if (category === 'cloud_ai' && config.dataGravity !== 'neutral') {
     lines[0] += ` with ${gravityLabels[config.dataGravity]} data gravity`;
+  }
+
+  if (category === 'computer_use' && config.computerUseCase) {
+    const useCaseLabels: Record<string, string> = {
+      scraping: 'web scraping',
+      form_fill: 'form-fill automation',
+      data_entry: 'data entry',
+      research: 'research & summarization',
+      qa_testing: 'QA testing',
+    };
+    lines[0] += ` focused on ${useCaseLabels[config.computerUseCase]}`;
   }
 
   lines[0] += `, ${primary.platform.name} is the recommended platform with a score of ${primary.normalizedScore}/100.`;
@@ -72,6 +86,7 @@ function generateExplanation(
 function generateGuardrails(
   config: UserConfig,
   scored: ScoredPlatform[],
+  category: PlatformCategory,
 ): string[] {
   const guardrails: string[] = [];
 
@@ -94,17 +109,33 @@ function generateGuardrails(
     );
   }
 
+  if (category === 'computer_use') {
+    guardrails.push(
+      'Conduct a security review before deploying any computer-use agent in production. Define explicit action boundaries and data access scopes.',
+    );
+    guardrails.push(
+      'Start with a 2–4 week pilot on non-production data. Measure task completion rate, cost per task, and security incidents.',
+    );
+    if (config.securityLevel !== 'standard') {
+      guardrails.push(
+        'Require IT security approval before granting any computer-use agent access to enterprise systems or sensitive data.',
+      );
+    }
+  }
+
   guardrails.push(
-    'This assessment uses generalised platform capabilities. Validate specific feature availability and SLAs for your region and workload.',
+    category === 'computer_use'
+      ? 'This assessment uses generalised agent capabilities. Validate specific task reliability and security posture for your use cases.'
+      : 'This assessment uses generalised platform capabilities. Validate specific feature availability and SLAs for your region and workload.',
   );
 
   return guardrails;
 }
 
-export function generateRecommendation(config: UserConfig): Recommendation {
-  const scored = scoreAllPlatforms(config);
-  const explanation = generateExplanation(config, scored);
-  const guardrails = generateGuardrails(config, scored);
+export function generateRecommendation(config: UserConfig, category: PlatformCategory = 'cloud_ai'): Recommendation {
+  const scored = scoreAllPlatforms(config, category);
+  const explanation = generateExplanation(config, scored, category);
+  const guardrails = generateGuardrails(config, scored, category);
 
   return {
     primary: scored[0],
@@ -131,6 +162,7 @@ export function generateExecBrief(
     multimodal: 'multimodal AI system',
     fine_tuned: 'fine-tuned model deployment',
     copilot: 'enterprise AI copilot',
+    computer_use: 'computer-use agent evaluation',
   };
 
   const lines = [

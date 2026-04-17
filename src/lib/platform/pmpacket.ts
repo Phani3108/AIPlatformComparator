@@ -26,6 +26,7 @@ export function generatePMPacket(
     multimodal: 'Multimodal AI',
     fine_tuned: 'Fine-Tuned Model',
     copilot: 'AI Copilot',
+    computer_use: 'Computer-Use Agent',
   };
 
   const sections: string[] = [

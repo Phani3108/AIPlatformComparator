@@ -48,7 +48,11 @@ function ScoreDot({ score }: { score: number }) {
 }
 
 export default function ScoreTable({ scored }: Props) {
-  const dimensions = Object.keys(DIMENSION_LABELS) as ScoreDimension[];
+  // Only show dimensions that have non-zero scores on at least one platform
+  const allDimensions = Object.keys(DIMENSION_LABELS) as ScoreDimension[];
+  const dimensions = allDimensions.filter((dim) =>
+    scored.some((s) => (s.dimensionScores[dim]?.score ?? 0) > 0)
+  );
   const colCount = scored.length + 1;
   const platformColWidth = `${Math.floor(66 / scored.length)}%`;
 

@@ -178,5 +178,52 @@
       "search": "Kendra",
       "analytics": "Redshift"
     }
+  },
+  "computer_use": {
+    "claude_computer_use": {
+      "agent_runtime": "Anthropic API (Claude 3.5+)",
+      "browser_engine": "Built-in screen interaction",
+      "orchestration": "Tool-use with system prompts",
+      "state_management": "Conversation context",
+      "auth_layer": "API keys with org controls",
+      "monitoring": "Usage analytics dashboard",
+      "sandbox": "User-defined environment"
+    },
+    "browserbase": {
+      "agent_runtime": "External LLM (GPT-4 / Claude)",
+      "browser_engine": "Chromium (managed cloud)",
+      "orchestration": "Playwright / Puppeteer API",
+      "state_management": "Session persistence",
+      "auth_layer": "API key + team RBAC",
+      "monitoring": "Session recording + replay",
+      "sandbox": "Isolated browser containers"
+    },
+    "manus": {
+      "agent_runtime": "Manus Planning Engine",
+      "browser_engine": "Built-in browser + desktop",
+      "orchestration": "Autonomous task planner",
+      "state_management": "Task state tracking",
+      "auth_layer": "Account-based access",
+      "monitoring": "Execution logs",
+      "sandbox": "Cloud sandbox environment"
+    },
+    "replit_agent": {
+      "agent_runtime": "Replit AI (multi-model)",
+      "browser_engine": "N/A (code execution only)",
+      "orchestration": "Natural language to code pipeline",
+      "state_management": "Workspace + Repl DB",
+      "auth_layer": "Replit Teams SSO",
+      "monitoring": "Deployment history",
+      "sandbox": "Nix-based containers"
+    },
+    "cursor_agent": {
+      "agent_runtime": "Multi-model (GPT-4 / Claude / Gemini)",
+      "browser_engine": "N/A (IDE only)",
+      "orchestration": "Agent mode with tool calls",
+      "state_management": "Project context + .cursorrules",
+      "auth_layer": "Account + business plan RBAC",
+      "monitoring": "Chat history",
+      "sandbox": "Local workspace"
+    }
   }
 }

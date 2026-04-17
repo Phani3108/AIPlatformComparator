@@ -15,17 +15,19 @@ import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import FolderZipOutlinedIcon from '@mui/icons-material/FolderZipOutlined';
-import type { UserConfig, Recommendation, ScoredPlatform, RiskAlert } from '@/lib/platform/types';
+import type { UserConfig, PlatformCategory, Recommendation, ScoredPlatform, RiskAlert } from '@/lib/platform/types';
 import { generateExecBrief } from '@/lib/platform/recommendation';
 import { generatePMPacket } from '@/lib/platform/pmpacket';
+import { generateVendorScorecard } from '@/lib/platform/pilot';
 
 interface Props {
   config: UserConfig;
+  category: PlatformCategory;
   recommendation: Recommendation;
   risks: RiskAlert[];
 }
 
-export default function ExportPanel({ config, recommendation, risks }: Props) {
+export default function ExportPanel({ config, category, recommendation, risks }: Props) {
   const [snack, setSnack] = useState({ open: false, message: '' });
 
   const handleExportCsv = () => {
@@ -81,6 +83,21 @@ export default function ExportPanel({ config, recommendation, risks }: Props) {
     setSnack({ open: true, message: 'Full PM packet copied to clipboard' });
   };
 
+  const handleCopyScorecard = () => {
+    const scores: Record<string, number> = {};
+    const primary = recommendation.primary;
+    for (const [dim, result] of Object.entries(primary.dimensionScores)) {
+      scores[dim] = result.score;
+    }
+    const md = generateVendorScorecard(
+      primary.platform.id,
+      config.computerUseCase ?? 'research',
+      scores,
+    );
+    navigator.clipboard.writeText(md);
+    setSnack({ open: true, message: 'Vendor scorecard copied to clipboard' });
+  };
+
   return (
     <Card>
       <CardContent>
@@ -101,6 +118,19 @@ export default function ExportPanel({ config, recommendation, risks }: Props) {
         >
           Copy PM Packet
         </Button>
+
+        {category === 'computer_use' && (
+          <Button
+            variant="contained"
+            size="small"
+            fullWidth
+            startIcon={<DescriptionOutlinedIcon />}
+            onClick={handleCopyScorecard}
+            sx={{ mb: 1.5, bgcolor: '#d97706' }}
+          >
+            Copy Vendor Scorecard
+          </Button>
+        )}
 
         <Divider sx={{ my: 1 }} />
 

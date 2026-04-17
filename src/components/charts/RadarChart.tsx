@@ -20,7 +20,10 @@ interface Props {
 }
 
 export default function RadarChart({ scored }: Props) {
-  const dimensions = Object.keys(DIMENSION_LABELS) as ScoreDimension[];
+  const allDimensions = Object.keys(DIMENSION_LABELS) as ScoreDimension[];
+  const dimensions = allDimensions.filter((dim) =>
+    scored.some((s) => (s.dimensionScores[dim]?.score ?? 0) > 0)
+  );
 
   const data = dimensions.map((dim) => {
     const entry: Record<string, string | number> = {

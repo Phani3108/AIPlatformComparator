@@ -44,7 +44,30 @@ export default function ArchitectureDiagram({
     setCopied(true);
   };
 
-  if (!diagram) return null;
+  if (!diagram) {
+    return (
+      <Card>
+        <CardContent>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: 200,
+              bgcolor: '#f8f9fa',
+              borderRadius: 1,
+              border: '1px dashed #dadce0',
+            }}
+          >
+            <Typography variant="body2" color="text.secondary">
+              No architecture diagram available for this platform and workload combination.
+            </Typography>
+          </Box>
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <Card>

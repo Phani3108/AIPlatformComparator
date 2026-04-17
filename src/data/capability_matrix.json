@@ -111,6 +111,106 @@
       "vertex_ai": { "supported": true, "maturity": "GA", "notes": "Google Search grounding + enterprise data grounding" },
       "azure_openai": { "supported": true, "maturity": "GA", "notes": "On Your Data with Azure AI Search" },
       "aws_bedrock": { "supported": true, "maturity": "GA", "notes": "Knowledge Bases with S3/web connectors" }
+    },
+    {
+      "id": "web_scraping",
+      "name": "Web Scraping / Data Extraction",
+      "category": "Computer-Use",
+      "claude_computer_use": { "supported": true, "maturity": "GA", "notes": "Screenshot-based extraction with reasoning" },
+      "browserbase": { "supported": true, "maturity": "GA", "notes": "Purpose-built with anti-detection and proxy support" },
+      "manus": { "supported": true, "maturity": "GA", "notes": "Autonomous browser scraping with planning" },
+      "replit_agent": { "supported": false, "maturity": "N/A", "notes": "Code-focused — not designed for web scraping" },
+      "cursor_agent": { "supported": false, "maturity": "N/A", "notes": "IDE-only — no browser capabilities" }
+    },
+    {
+      "id": "form_fill",
+      "name": "Form Fill / Data Entry",
+      "category": "Computer-Use",
+      "claude_computer_use": { "supported": true, "maturity": "GA", "notes": "Pixel-accurate form interaction with field understanding" },
+      "browserbase": { "supported": true, "maturity": "GA", "notes": "Playwright-based form automation" },
+      "manus": { "supported": true, "maturity": "GA", "notes": "End-to-end form workflows with validation" },
+      "replit_agent": { "supported": false, "maturity": "N/A", "notes": "Not designed for browser form-fill" },
+      "cursor_agent": { "supported": false, "maturity": "N/A", "notes": "IDE-only — no form interaction" }
+    },
+    {
+      "id": "research_summarization",
+      "name": "Research & Summarization",
+      "category": "Computer-Use",
+      "claude_computer_use": { "supported": true, "maturity": "GA", "notes": "Best-in-class multi-source research with reasoning chains" },
+      "browserbase": { "supported": true, "maturity": "GA", "notes": "Parallel page fetching with LLM integration" },
+      "manus": { "supported": true, "maturity": "GA", "notes": "Autonomous research across multiple sites and sources" },
+      "replit_agent": { "supported": true, "maturity": "Preview", "notes": "Can research code patterns and documentation" },
+      "cursor_agent": { "supported": true, "maturity": "GA", "notes": "Codebase and documentation research" }
+    },
+    {
+      "id": "qa_automation",
+      "name": "QA / Testing Automation",
+      "category": "Computer-Use",
+      "claude_computer_use": { "supported": true, "maturity": "GA", "notes": "Visual QA with screenshot comparison and reasoning" },
+      "browserbase": { "supported": true, "maturity": "GA", "notes": "Headless browser testing infrastructure" },
+      "manus": { "supported": true, "maturity": "Preview", "notes": "Basic QA automation with visual checking" },
+      "replit_agent": { "supported": true, "maturity": "GA", "notes": "Can write and run test suites" },
+      "cursor_agent": { "supported": true, "maturity": "GA", "notes": "Test generation and execution in IDE" }
+    },
+    {
+      "id": "multi_step_orchestration",
+      "name": "Multi-step Workflow Orchestration",
+      "category": "Computer-Use",
+      "claude_computer_use": { "supported": true, "maturity": "GA", "notes": "Deliberative multi-step planning with self-correction" },
+      "browserbase": { "supported": true, "maturity": "Preview", "notes": "Session chaining with state persistence" },
+      "manus": { "supported": true, "maturity": "GA", "notes": "Built-in planning engine for complex workflows" },
+      "replit_agent": { "supported": true, "maturity": "GA", "notes": "Multi-file, multi-step code generation workflows" },
+      "cursor_agent": { "supported": true, "maturity": "GA", "notes": "Multi-file agent mode with context tracking" }
+    },
+    {
+      "id": "visual_understanding",
+      "name": "Screenshot / Visual Understanding",
+      "category": "Computer-Use",
+      "claude_computer_use": { "supported": true, "maturity": "GA", "notes": "Native pixel-level screen understanding" },
+      "browserbase": { "supported": true, "maturity": "Preview", "notes": "Session screenshots with DOM overlay" },
+      "manus": { "supported": true, "maturity": "GA", "notes": "Visual page understanding for navigation" },
+      "replit_agent": { "supported": false, "maturity": "N/A", "notes": "No visual UI understanding" },
+      "cursor_agent": { "supported": false, "maturity": "N/A", "notes": "Code-only — no visual understanding" }
+    },
+    {
+      "id": "file_management",
+      "name": "File Management",
+      "category": "Computer-Use",
+      "claude_computer_use": { "supported": true, "maturity": "GA", "notes": "Can manage desktop files via OS interaction" },
+      "browserbase": { "supported": true, "maturity": "GA", "notes": "Download handling and file upload in browser" },
+      "manus": { "supported": true, "maturity": "GA", "notes": "Full file system access in sandbox" },
+      "replit_agent": { "supported": true, "maturity": "GA", "notes": "Full workspace file management" },
+      "cursor_agent": { "supported": true, "maturity": "GA", "notes": "Full project file management in IDE" }
+    },
+    {
+      "id": "human_in_loop_checkpoints",
+      "name": "Human-in-Loop Checkpoints",
+      "category": "Computer-Use",
+      "claude_computer_use": { "supported": true, "maturity": "GA", "notes": "Confirmation gates for sensitive actions" },
+      "browserbase": { "supported": true, "maturity": "Preview", "notes": "Webhook-based approval gates" },
+      "manus": { "supported": true, "maturity": "GA", "notes": "Interactive approval at key decision points" },
+      "replit_agent": { "supported": true, "maturity": "GA", "notes": "Manual approval before code execution" },
+      "cursor_agent": { "supported": true, "maturity": "GA", "notes": "Diff review before applying changes" }
+    },
+    {
+      "id": "enterprise_sso_rbac",
+      "name": "Enterprise SSO / RBAC",
+      "category": "Computer-Use",
+      "claude_computer_use": { "supported": true, "maturity": "GA", "notes": "API key management with org-level controls" },
+      "browserbase": { "supported": true, "maturity": "Preview", "notes": "Team accounts with role-based access" },
+      "manus": { "supported": false, "maturity": "N/A", "notes": "No enterprise SSO integration yet" },
+      "replit_agent": { "supported": true, "maturity": "GA", "notes": "Teams plan with SSO support" },
+      "cursor_agent": { "supported": true, "maturity": "Preview", "notes": "Business plan with team management" }
+    },
+    {
+      "id": "audit_logging",
+      "name": "Audit Logging",
+      "category": "Computer-Use",
+      "claude_computer_use": { "supported": true, "maturity": "GA", "notes": "Full API request/response logging with usage analytics" },
+      "browserbase": { "supported": true, "maturity": "GA", "notes": "Session recording, replay, and action logs" },
+      "manus": { "supported": true, "maturity": "Preview", "notes": "Basic task execution logs" },
+      "replit_agent": { "supported": true, "maturity": "Preview", "notes": "Deployment and execution history" },
+      "cursor_agent": { "supported": false, "maturity": "N/A", "notes": "No centralized audit logging" }
     }
   ]
 }

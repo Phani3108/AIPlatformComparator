@@ -18,12 +18,13 @@ import {
   Fade,
 } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
-import type { UserConfig } from '@/lib/platform/types';
+import type { UserConfig, PlatformCategory } from '@/lib/platform/types';
 import { generateRecommendation } from '@/lib/platform/recommendation';
 import { analyzeRisks } from '@/lib/platform/risk';
 import { generateDecisionTrace } from '@/lib/platform/trace';
 import { generatePortabilityPlan } from '@/lib/platform/portability';
-import ConfigurationPanel, { DEFAULT_CONFIG } from './ConfigurationPanel';
+import { generatePilotPlan } from '@/lib/platform/pilot';
+import ConfigurationPanel, { DEFAULT_CONFIG, DEFAULT_CU_CONFIG } from './ConfigurationPanel';
 import RecommendationCard from './RecommendationCard';
 import ScoreTable from './ScoreTable';
 import ArchitectureDiagram from './ArchitectureDiagram';
@@ -35,8 +36,10 @@ import ScenarioComparison from './ScenarioComparison';
 import ExportPanel from './ExportPanel';
 import DecisionTrace from './DecisionTrace';
 import PortabilityPlanPanel from './PortabilityPlanPanel';
+import PilotPlanPanel from './PilotPlanPanel';
 import DataDisclosure from './DataDisclosure';
 import RadarChart from '@/components/charts/RadarChart';
+import { useEmbedMode } from '@/utils/embedMode';
 
 const DEMO_CONFIG: UserConfig = {
   workloadType: 'rag',
@@ -46,7 +49,18 @@ const DEMO_CONFIG: UserConfig = {
   governanceRequirement: 'medium',
 };
 
+const DEMO_CU_CONFIG: UserConfig = {
+  workloadType: 'computer_use',
+  dataGravity: 'neutral',
+  computerUseCase: 'research',
+  securityLevel: 'enterprise',
+  deploymentPreference: 'fully_managed',
+  governanceRequirement: 'medium',
+};
+
 export default function ComparatorPage() {
+  const embedMode = useEmbedMode();
+  const [category, setCategory] = useState<PlatformCategory>('cloud_ai');
   const [config, setConfig] = useState<UserConfig>(DEFAULT_CONFIG);
   const [tab, setTab] = useState(0);
   const [snackbar, setSnackbar] = useState({ open: false, message: '' });
@@ -55,13 +69,26 @@ export default function ComparatorPage() {
   const scoreRef = useRef<HTMLDivElement>(null);
   const archRef = useRef<HTMLDivElement>(null);
 
-  const recommendation = generateRecommendation(config);
+  const recommendation = generateRecommendation(config, category);
   const risks = analyzeRisks(config, recommendation.allScored);
-  const trace = generateDecisionTrace(config, recommendation.primary);
+  const trace = generateDecisionTrace(config, recommendation.primary, category);
   const portabilityPlan = generatePortabilityPlan(recommendation.primary.platform.id);
+  const pilotPlan = category === 'computer_use'
+    ? generatePilotPlan(recommendation.primary.platform.id, config.computerUseCase ?? 'research')
+    : null;
+
+  const handleCategoryChange = useCallback((cat: PlatformCategory) => {
+    setCategory(cat);
+    setConfig(cat === 'computer_use' ? DEFAULT_CU_CONFIG : DEFAULT_CONFIG);
+    setTab(0);
+  }, []);
 
   const handleDemo = useCallback(() => {
-    setConfig(DEMO_CONFIG);
+    if (category === 'computer_use') {
+      setConfig(DEMO_CU_CONFIG);
+    } else {
+      setConfig(DEMO_CONFIG);
+    }
     setTab(0);
     setDemoHighlight(true);
 
@@ -73,30 +100,32 @@ export default function ComparatorPage() {
       setDemoHighlight(false);
     }, 2500);
 
-    setSnackbar({ open: true, message: 'Demo loaded — Enterprise RAG on Google Cloud' });
-  }, []);
+    setSnackbar({ open: true, message: category === 'computer_use' ? 'Demo loaded — Enterprise Research Agent' : 'Demo loaded — Enterprise RAG on Google Cloud' });
+  }, [category]);
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', bgcolor: 'background.default' }}>
-      <AppBar position="sticky" elevation={0} sx={{ bgcolor: '#1a73e8', zIndex: 1201 }}>
-        <Toolbar variant="dense">
-          <Tooltip title="Home">
-            <IconButton color="inherit" href="/" sx={{ mr: 1 }} size="small">
-              <HomeIcon />
-            </IconButton>
-          </Tooltip>
-          <Box>
-            <Typography variant="h6" sx={{ fontWeight: 700, letterSpacing: -0.5, lineHeight: 1.2 }}>
-              AI Platform Decision Engine
-            </Typography>
-            <Typography variant="caption" sx={{ opacity: 0.85, display: { xs: 'none', sm: 'block' } }}>
-              Enterprise-grade platform evaluation — Vertex AI vs Azure OpenAI vs AWS Bedrock
-            </Typography>
-          </Box>
-          <Box sx={{ flexGrow: 1 }} />
-          <DataDisclosure />
-        </Toolbar>
-      </AppBar>
+      {!embedMode && (
+        <AppBar position="sticky" elevation={0} sx={{ bgcolor: '#1a73e8', zIndex: 1201 }}>
+          <Toolbar variant="dense">
+            <Tooltip title="Home">
+              <IconButton color="inherit" href="/" sx={{ mr: 1 }} size="small">
+                <HomeIcon />
+              </IconButton>
+            </Tooltip>
+            <Box>
+              <Typography variant="h6" sx={{ fontWeight: 700, letterSpacing: -0.5, lineHeight: 1.2 }}>
+                AI Platform Decision Engine
+              </Typography>
+              <Typography variant="caption" sx={{ opacity: 0.85, display: { xs: 'none', sm: 'block' } }}>
+                {category === 'computer_use' ? 'Computer-Use Agent Evaluator — Claude vs Browserbase vs Manus vs Replit vs Cursor' : 'Enterprise-grade platform evaluation — Vertex AI vs Azure OpenAI vs AWS Bedrock'}
+              </Typography>
+            </Box>
+            <Box sx={{ flexGrow: 1 }} />
+            <DataDisclosure />
+          </Toolbar>
+        </AppBar>
+      )}
 
       <Box
         sx={{
@@ -109,9 +138,9 @@ export default function ComparatorPage() {
         }}
       >
         <Box sx={{ width: { xs: '100%', lg: '320px' }, flexShrink: 0 }}>
-          <ConfigurationPanel config={config} onChange={setConfig} onDemo={handleDemo} />
+          <ConfigurationPanel config={config} category={category} onCategoryChange={handleCategoryChange} onChange={setConfig} onDemo={handleDemo} />
           <Box sx={{ mt: 2 }}>
-            <ExportPanel config={config} recommendation={recommendation} risks={risks} />
+            <ExportPanel config={config} category={category} recommendation={recommendation} risks={risks} />
           </Box>
         </Box>
 
@@ -143,6 +172,7 @@ export default function ComparatorPage() {
               <Tab label="Migration" />
               <Tab label="Comparison" />
               <Tab label="Risk Alerts" />
+              {category === 'computer_use' && <Tab label="Pilot Plan" />}
             </Tabs>
           </Box>
 
@@ -206,16 +236,16 @@ export default function ComparatorPage() {
             </Fade>
           )}
 
-          {tab === 3 && <CapabilityMatrix />}
+          {tab === 3 && <CapabilityMatrix category={category} />}
 
           {tab === 4 && (
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-              <LockInRadar />
+              <LockInRadar category={category} />
               <PortabilityPlanPanel plan={portabilityPlan} />
             </Box>
           )}
 
-          {tab === 5 && <MigrationPanel />}
+          {tab === 5 && <MigrationPanel category={category} />}
 
           {tab === 6 && <ScenarioComparison scored={recommendation.allScored} />}
 
@@ -234,6 +264,10 @@ export default function ComparatorPage() {
                 <RiskAlerts alerts={risks} />
               </Box>
             </Fade>
+          )}
+
+          {tab === 8 && pilotPlan && (
+            <PilotPlanPanel plan={pilotPlan} />
           )}
         </Box>
       </Box>

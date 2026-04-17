@@ -71,6 +71,48 @@
       "name": "Multi-Region Support",
       "description": "Data residency, regional deployment, and disaster recovery",
       "icon": "Public"
+    },
+    {
+      "id": "task_coverage",
+      "name": "Task Coverage",
+      "description": "Breadth of automatable tasks: scraping, form-fill, data-entry, research, QA",
+      "icon": "TaskAlt",
+      "category": "computer_use"
+    },
+    {
+      "id": "reliability_at_n_steps",
+      "name": "Reliability at N Steps",
+      "description": "Success rate as task complexity (number of sequential steps) increases",
+      "icon": "VerifiedUser",
+      "category": "computer_use"
+    },
+    {
+      "id": "cost_per_task",
+      "name": "Cost per Task",
+      "description": "Average cost to complete a standard automated task end-to-end",
+      "icon": "PriceCheck",
+      "category": "computer_use"
+    },
+    {
+      "id": "security_posture",
+      "name": "Security Posture",
+      "description": "What the agent can see/access, data exfiltration controls, and sandbox isolation",
+      "icon": "Shield",
+      "category": "computer_use"
+    },
+    {
+      "id": "human_in_loop",
+      "name": "Human-in-Loop Gates",
+      "description": "Approval checkpoints, confirmation prompts, and escalation capabilities",
+      "icon": "SupervisedUserCircle",
+      "category": "computer_use"
+    },
+    {
+      "id": "it_approvability",
+      "name": "IT Approvability",
+      "description": "Enterprise IT readiness: SSO/RBAC support, audit logging, compliance posture",
+      "icon": "AdminPanelSettings",
+      "category": "computer_use"
     }
   ],
   "dimension_labels": {
@@ -85,6 +127,12 @@
     "cost_predictability": "Cost Predictability",
     "model_evaluation": "Evaluation Tooling",
     "data_integration": "Data Integration",
-    "multi_region": "Multi-Region"
+    "multi_region": "Multi-Region",
+    "task_coverage": "Task Coverage",
+    "reliability_at_n_steps": "Reliability at N Steps",
+    "cost_per_task": "Cost per Task",
+    "security_posture": "Security Posture",
+    "human_in_loop": "Human-in-Loop",
+    "it_approvability": "IT Approvability"
   }
 }

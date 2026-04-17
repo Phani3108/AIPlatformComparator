@@ -1,13 +1,16 @@
-export type WorkloadType = 'chatbot' | 'rag' | 'agent' | 'multimodal' | 'fine_tuned' | 'copilot';
+export type WorkloadType = 'chatbot' | 'rag' | 'agent' | 'multimodal' | 'fine_tuned' | 'copilot' | 'computer_use';
 export type DataGravity = 'bigquery' | 'azure_data' | 'aws_data' | 'neutral';
+export type ComputerUseCase = 'scraping' | 'form_fill' | 'data_entry' | 'research' | 'qa_testing';
 export type SecurityLevel = 'standard' | 'enterprise' | 'highly_regulated';
 export type DeploymentPreference = 'fully_managed' | 'hybrid' | 'infrastructure_control';
 export type GovernanceRequirement = 'low' | 'medium' | 'high';
-export type PlatformId = 'vertex_ai' | 'azure_openai' | 'aws_bedrock';
+export type PlatformId = 'vertex_ai' | 'azure_openai' | 'aws_bedrock' | 'claude_computer_use' | 'browserbase' | 'manus' | 'replit_agent' | 'cursor_agent';
+export type PlatformCategory = 'cloud_ai' | 'computer_use';
 
 export interface UserConfig {
   workloadType: WorkloadType;
   dataGravity: DataGravity;
+  computerUseCase?: ComputerUseCase;
   securityLevel: SecurityLevel;
   deploymentPreference: DeploymentPreference;
   governanceRequirement: GovernanceRequirement;
@@ -25,7 +28,13 @@ export type ScoreDimension =
   | 'cost_predictability'
   | 'model_evaluation'
   | 'data_integration'
-  | 'multi_region';
+  | 'multi_region'
+  | 'task_coverage'
+  | 'reliability_at_n_steps'
+  | 'cost_per_task'
+  | 'security_posture'
+  | 'human_in_loop'
+  | 'it_approvability';
 
 export type PlatformScores = Record<ScoreDimension, number>;
 
@@ -34,6 +43,7 @@ export interface Platform {
   name: string;
   vendor: string;
   color: string;
+  category: PlatformCategory;
   scores: PlatformScores;
   strengths: string[];
   weaknesses: string[];
@@ -111,9 +121,7 @@ export interface Capability {
   id: string;
   name: string;
   category: string;
-  vertex_ai: CapabilityEntry;
-  azure_openai: CapabilityEntry;
-  aws_bedrock: CapabilityEntry;
+  [platformId: string]: CapabilityEntry | string;
 }
 
 export interface TraceContributor {
@@ -145,4 +153,20 @@ export interface PortabilityPlan {
   platformName: string;
   steps: PortabilityStep[];
   summary: string;
+}
+
+export interface PilotPlanStep {
+  phase: string;
+  title: string;
+  duration: string;
+  tasks: string[];
+}
+
+export interface PilotPlan {
+  platformId: PlatformId;
+  platformName: string;
+  phases: PilotPlanStep[];
+  successMetrics: string[];
+  securityChecklist: string[];
+  rollbackPlan: string;
 }

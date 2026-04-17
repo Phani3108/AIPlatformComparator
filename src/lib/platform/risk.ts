@@ -123,5 +123,53 @@ export function analyzeRisks(
     });
   }
 
+  if (config.workloadType === 'computer_use') {
+    alerts.push({
+      severity: 'warning',
+      title: 'Data Exfiltration Risk',
+      description:
+        'Computer-use agents can access visible screen content, potentially including sensitive data. Implement strict environment isolation and use sandboxed VMs or containers for agent execution.',
+    });
+
+    alerts.push({
+      severity: 'warning',
+      title: 'Uncontrolled Browser Access',
+      description:
+        'Browser-based agents may navigate to unintended sites, trigger downloads, or interact with login forms. Define explicit URL allowlists and action boundaries before production deployment.',
+    });
+
+    alerts.push({
+      severity: 'error',
+      title: 'Credential Exposure',
+      description:
+        'Never give computer-use agents access to production credentials, passwords, or auth tokens directly. Use environment-level service accounts with minimum necessary permissions.',
+    });
+
+    if (config.securityLevel === 'highly_regulated') {
+      alerts.push({
+        severity: 'error',
+        title: 'Regulatory Compliance Gap',
+        description:
+          'Most computer-use agent platforms lack the compliance certifications required for highly regulated environments (FedRAMP, HIPAA, PCI DSS). Conduct a thorough compliance review before pilot deployment.',
+      });
+    }
+
+    alerts.push({
+      severity: 'info',
+      title: 'Pilot Scope Recommendation',
+      description:
+        'Start with a narrow pilot (single use case, non-production data) for 2–4 weeks. Measure completion rate, cost per task, and security incidents before expanding scope.',
+    });
+
+    if (config.governanceRequirement === 'high') {
+      alerts.push({
+        severity: 'warning',
+        title: 'Audit Trail Requirements',
+        description:
+          'High governance requirements demand full audit trails for all agent actions. Verify the selected platform can log every click, navigation, and data extraction for compliance review.',
+      });
+    }
+  }
+
   return alerts;
 }

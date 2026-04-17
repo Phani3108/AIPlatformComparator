@@ -1,7 +1,7 @@
 {
   "meta": {
-    "version": "1.0.0",
-    "updatedAt": "2026-03-05",
+    "version": "2.0.0",
+    "updatedAt": "2026-04-17",
     "methodology": "Heuristic scoring based on publicly available platform documentation and capability assessments",
     "disclaimer": "Scores are indicative. Validate against your organisation's specific requirements and procurement facts."
   },
@@ -11,6 +11,7 @@
       "name": "Google Vertex AI",
       "vendor": "Google Cloud",
       "color": "#4285f4",
+      "category": "cloud_ai",
       "scores": {
         "model_ecosystem": 5,
         "security": 4,
@@ -23,7 +24,13 @@
         "cost_predictability": 4,
         "model_evaluation": 5,
         "data_integration": 5,
-        "multi_region": 4
+        "multi_region": 4,
+        "task_coverage": 0,
+        "reliability_at_n_steps": 0,
+        "cost_per_task": 0,
+        "security_posture": 0,
+        "human_in_loop": 0,
+        "it_approvability": 0
       },
       "strengths": [
         "Native Gemini model family with multimodal capabilities",
@@ -47,6 +54,7 @@
       "name": "Azure OpenAI",
       "vendor": "Microsoft Azure",
       "color": "#f4b400",
+      "category": "cloud_ai",
       "scores": {
         "model_ecosystem": 4,
         "security": 5,
@@ -59,7 +67,13 @@
         "cost_predictability": 4,
         "model_evaluation": 3,
         "data_integration": 4,
-        "multi_region": 5
+        "multi_region": 5,
+        "task_coverage": 0,
+        "reliability_at_n_steps": 0,
+        "cost_per_task": 0,
+        "security_posture": 0,
+        "human_in_loop": 0,
+        "it_approvability": 0
       },
       "strengths": [
         "Deepest enterprise integration via Microsoft 365 and Azure AD",
@@ -84,6 +98,7 @@
       "name": "AWS Bedrock",
       "vendor": "Amazon Web Services",
       "color": "#ff9900",
+      "category": "cloud_ai",
       "scores": {
         "model_ecosystem": 5,
         "security": 4,
@@ -96,7 +111,13 @@
         "cost_predictability": 3,
         "model_evaluation": 3,
         "data_integration": 4,
-        "multi_region": 4
+        "multi_region": 4,
+        "task_coverage": 0,
+        "reliability_at_n_steps": 0,
+        "cost_per_task": 0,
+        "security_posture": 0,
+        "human_in_loop": 0,
+        "it_approvability": 0
       },
       "strengths": [
         "Broadest model marketplace with Claude, Llama, Mistral, Titan, and more",
@@ -115,6 +136,226 @@
       ],
       "certifications": ["SOC 2", "ISO 27001", "HIPAA", "FedRAMP High", "PCI DSS", "GovCloud"],
       "pricing_model": "Pay-per-token with on-demand and provisioned throughput"
+    },
+    {
+      "id": "claude_computer_use",
+      "name": "Claude Computer Use",
+      "vendor": "Anthropic",
+      "color": "#d97706",
+      "category": "computer_use",
+      "scores": {
+        "model_ecosystem": 3,
+        "security": 4,
+        "governance": 4,
+        "developer_productivity": 4,
+        "deployment_flexibility": 3,
+        "observability": 3,
+        "ecosystem_integration": 3,
+        "scalability": 3,
+        "cost_predictability": 3,
+        "model_evaluation": 3,
+        "data_integration": 2,
+        "multi_region": 2,
+        "task_coverage": 5,
+        "reliability_at_n_steps": 5,
+        "cost_per_task": 3,
+        "security_posture": 5,
+        "human_in_loop": 5,
+        "it_approvability": 4
+      },
+      "strengths": [
+        "Most advanced multi-step reasoning for complex desktop and browser tasks",
+        "Native screenshot understanding with pixel-level accuracy",
+        "Built-in safety guardrails and human-in-loop confirmation gates",
+        "Handles arbitrary GUI interactions (clicks, typing, navigation)",
+        "Strong constitutional AI alignment reduces rogue agent behavior",
+        "Deepest research and data-extraction capabilities",
+        "Enterprise API with audit logging and usage controls"
+      ],
+      "weaknesses": [
+        "Highest cost per completed task among computer-use agents",
+        "Slower execution due to deliberative reasoning at each step",
+        "Requires Anthropic API — no self-hosted option",
+        "Limited browser automation compared to dedicated browser agents"
+      ],
+      "certifications": ["SOC 2", "ISO 27001"],
+      "pricing_model": "Per-token with tool-use surcharge per action"
+    },
+    {
+      "id": "browserbase",
+      "name": "Browserbase",
+      "vendor": "Browserbase Inc",
+      "color": "#6366f1",
+      "category": "computer_use",
+      "scores": {
+        "model_ecosystem": 2,
+        "security": 3,
+        "governance": 3,
+        "developer_productivity": 5,
+        "deployment_flexibility": 4,
+        "observability": 4,
+        "ecosystem_integration": 3,
+        "scalability": 5,
+        "cost_predictability": 4,
+        "model_evaluation": 2,
+        "data_integration": 3,
+        "multi_region": 3,
+        "task_coverage": 4,
+        "reliability_at_n_steps": 4,
+        "cost_per_task": 5,
+        "security_posture": 3,
+        "human_in_loop": 3,
+        "it_approvability": 3
+      },
+      "strengths": [
+        "Purpose-built cloud browser infrastructure for agent automation",
+        "Lowest cost per task for web scraping and data extraction",
+        "API-first design with Playwright/Puppeteer compatibility",
+        "Managed browser sessions with anti-detection and proxy support",
+        "Excellent horizontal scaling for parallel task execution",
+        "Session recording and replay for debugging",
+        "Stealth mode for sites with bot-detection"
+      ],
+      "weaknesses": [
+        "Limited to browser-based tasks — no desktop automation",
+        "No native AI reasoning — relies on external LLM providers",
+        "Enterprise governance features still maturing",
+        "Human-in-loop capabilities are basic"
+      ],
+      "certifications": ["SOC 2"],
+      "pricing_model": "Per-session-minute with volume discounts"
+    },
+    {
+      "id": "manus",
+      "name": "Manus AI",
+      "vendor": "Manus",
+      "color": "#10b981",
+      "category": "computer_use",
+      "scores": {
+        "model_ecosystem": 3,
+        "security": 3,
+        "governance": 3,
+        "developer_productivity": 4,
+        "deployment_flexibility": 3,
+        "observability": 3,
+        "ecosystem_integration": 3,
+        "scalability": 4,
+        "cost_predictability": 3,
+        "model_evaluation": 2,
+        "data_integration": 3,
+        "multi_region": 2,
+        "task_coverage": 5,
+        "reliability_at_n_steps": 4,
+        "cost_per_task": 4,
+        "security_posture": 3,
+        "human_in_loop": 4,
+        "it_approvability": 2
+      },
+      "strengths": [
+        "Broadest autonomous task execution across browser and desktop",
+        "End-to-end task completion without hand-holding",
+        "Built-in planning and self-correction capabilities",
+        "Handles multi-application workflows (browser + files + APIs)",
+        "Good natural language task specification",
+        "Growing ecosystem of pre-built task templates"
+      ],
+      "weaknesses": [
+        "Newer platform with less enterprise track record",
+        "IT approvability is challenging — limited compliance certifications",
+        "Opaque execution model — harder to audit intermediate steps",
+        "Security posture not yet validated for regulated environments",
+        "Limited enterprise SSO and RBAC integration"
+      ],
+      "certifications": [],
+      "pricing_model": "Per-task with complexity-based pricing tiers"
+    },
+    {
+      "id": "replit_agent",
+      "name": "Replit Agent",
+      "vendor": "Replit",
+      "color": "#f97316",
+      "category": "computer_use",
+      "scores": {
+        "model_ecosystem": 3,
+        "security": 3,
+        "governance": 2,
+        "developer_productivity": 5,
+        "deployment_flexibility": 4,
+        "observability": 3,
+        "ecosystem_integration": 3,
+        "scalability": 3,
+        "cost_predictability": 4,
+        "model_evaluation": 2,
+        "data_integration": 2,
+        "multi_region": 2,
+        "task_coverage": 3,
+        "reliability_at_n_steps": 3,
+        "cost_per_task": 4,
+        "security_posture": 3,
+        "human_in_loop": 3,
+        "it_approvability": 2
+      },
+      "strengths": [
+        "Best-in-class code generation with immediate execution environment",
+        "Integrated deployment — goes from idea to live app in one tool",
+        "Natural language to full-stack application generation",
+        "Built-in environment management (packages, DBs, secrets)",
+        "Excellent for rapid prototyping and MVP building",
+        "Good cost efficiency for development-focused tasks"
+      ],
+      "weaknesses": [
+        "Focused on code/dev tasks — limited browser automation",
+        "Not designed for enterprise data-entry or form-fill workflows",
+        "Limited compliance certifications for regulated industries",
+        "Governance and audit trail capabilities are minimal",
+        "Less reliable for complex multi-step non-coding tasks"
+      ],
+      "certifications": ["SOC 2"],
+      "pricing_model": "Subscription with compute-cycle based usage"
+    },
+    {
+      "id": "cursor_agent",
+      "name": "Cursor AI",
+      "vendor": "Anysphere",
+      "color": "#8b5cf6",
+      "category": "computer_use",
+      "scores": {
+        "model_ecosystem": 4,
+        "security": 3,
+        "governance": 2,
+        "developer_productivity": 5,
+        "deployment_flexibility": 3,
+        "observability": 3,
+        "ecosystem_integration": 3,
+        "scalability": 2,
+        "cost_predictability": 4,
+        "model_evaluation": 2,
+        "data_integration": 2,
+        "multi_region": 1,
+        "task_coverage": 3,
+        "reliability_at_n_steps": 4,
+        "cost_per_task": 4,
+        "security_posture": 3,
+        "human_in_loop": 4,
+        "it_approvability": 2
+      },
+      "strengths": [
+        "Best IDE-integrated AI agent with deep codebase understanding",
+        "Multi-file editing with context-aware code generation",
+        "Excellent reliability for code-centric multi-step tasks",
+        "Human-in-loop review at each code change with diff preview",
+        "Supports multiple LLM backends (GPT-4, Claude, Gemini)",
+        "Strong privacy controls — code stays local by default"
+      ],
+      "weaknesses": [
+        "IDE-bound — no browser or desktop automation capabilities",
+        "Not suitable for data-entry, form-fill, or web scraping",
+        "Enterprise governance features are limited",
+        "No compliance certifications beyond basic SOC 2",
+        "Single-user focused — limited team coordination features"
+      ],
+      "certifications": ["SOC 2"],
+      "pricing_model": "Monthly subscription with request-based usage tiers"
     }
   ]
 }

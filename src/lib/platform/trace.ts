@@ -2,10 +2,11 @@ import type {
   UserConfig,
   ScoredPlatform,
   ScoreDimension,
+  PlatformCategory,
   DecisionTrace,
   TraceContributor,
 } from './types';
-import { getWeightsForConfig, DIMENSIONS } from './scoring';
+import { getWeightsForConfig, getDimensionsForCategory } from './scoring';
 import weightsData from '@/data/scoring_weights.json';
 import frameworkData from '@/data/enterprise_framework.json';
 
@@ -15,10 +16,12 @@ const DIMENSION_LABELS = frameworkData.dimension_labels as Record<ScoreDimension
 export function generateDecisionTrace(
   config: UserConfig,
   winner: ScoredPlatform,
+  category: PlatformCategory = 'cloud_ai',
 ): DecisionTrace {
   const finalWeights = getWeightsForConfig(config, winner.platform.id);
+  const dims = getDimensionsForCategory(category);
 
-  const contributors: TraceContributor[] = DIMENSIONS.map((dim) => {
+  const contributors: TraceContributor[] = dims.map((dim) => {
     const baseWeight = BASE_WEIGHTS[dim] ?? 1;
     const finalWeight = finalWeights[dim] ?? 1;
     const modifier = +(finalWeight - baseWeight).toFixed(2);

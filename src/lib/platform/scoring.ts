@@ -5,6 +5,7 @@ import type {
   UserConfig,
   Platform,
   PlatformId,
+  PlatformCategory,
   ScoredPlatform,
   ScoreDimension,
   DimensionResult,
@@ -12,7 +13,7 @@ import type {
 import platformsData from '@/data/platforms.json';
 import weightsData from '@/data/scoring_weights.json';
 
-const DIMENSIONS: ScoreDimension[] = [
+const CLOUD_AI_DIMENSIONS: ScoreDimension[] = [
   'model_ecosystem',
   'security',
   'governance',
@@ -27,6 +28,21 @@ const DIMENSIONS: ScoreDimension[] = [
   'multi_region',
 ];
 
+const COMPUTER_USE_DIMENSIONS: ScoreDimension[] = [
+  'task_coverage',
+  'reliability_at_n_steps',
+  'cost_per_task',
+  'security_posture',
+  'human_in_loop',
+  'it_approvability',
+];
+
+export function getDimensionsForCategory(category: PlatformCategory): ScoreDimension[] {
+  return category === 'computer_use' ? COMPUTER_USE_DIMENSIONS : CLOUD_AI_DIMENSIONS;
+}
+
+export { CLOUD_AI_DIMENSIONS as DIMENSIONS };
+
 function computeWeights(
   config: UserConfig,
   platformId: PlatformId,
@@ -38,6 +54,19 @@ function computeWeights(
   if (workloadMods) {
     for (const [dim, mod] of Object.entries(workloadMods)) {
       weights[dim as ScoreDimension] = (weights[dim as ScoreDimension] ?? 1) + mod;
+    }
+  }
+
+  // Apply computer use case modifiers
+  if (config.workloadType === 'computer_use' && config.computerUseCase) {
+    const caseMods = (weightsData as Record<string, unknown>)['computer_use_case_modifiers'] as Record<string, Record<string, number>> | undefined;
+    if (caseMods) {
+      const mods = caseMods[config.computerUseCase];
+      if (mods) {
+        for (const [dim, mod] of Object.entries(mods)) {
+          weights[dim as ScoreDimension] = (weights[dim as ScoreDimension] ?? 1) + mod;
+        }
+      }
     }
   }
 
@@ -84,14 +113,15 @@ function computeWeights(
   return weights;
 }
 
-function scorePlatform(platform: Platform, config: UserConfig): ScoredPlatform {
+function scorePlatform(platform: Platform, config: UserConfig, category: PlatformCategory): ScoredPlatform {
   const weights = computeWeights(config, platform.id);
+  const dims = getDimensionsForCategory(category);
 
   let totalWeighted = 0;
   let totalWeight = 0;
   const dimensionScores: Record<string, DimensionResult> = {};
 
-  for (const dim of DIMENSIONS) {
+  for (const dim of dims) {
     const score = platform.scores[dim] ?? 0;
     const weight = weights[dim] ?? 1;
     const weighted = score * weight;
@@ -113,9 +143,10 @@ function scorePlatform(platform: Platform, config: UserConfig): ScoredPlatform {
   };
 }
 
-export function scoreAllPlatforms(config: UserConfig): ScoredPlatform[] {
-  const platforms = platformsData.platforms as unknown as Platform[];
-  const scored = platforms.map((p) => scorePlatform(p, config));
+export function scoreAllPlatforms(config: UserConfig, category: PlatformCategory = 'cloud_ai'): ScoredPlatform[] {
+  const allPlatforms = platformsData.platforms as unknown as Platform[];
+  const platforms = allPlatforms.filter((p) => (p.category ?? 'cloud_ai') === category);
+  const scored = platforms.map((p) => scorePlatform(p, config, category));
 
   scored.sort((a, b) => b.normalizedScore - a.normalizedScore);
   scored.forEach((s, i) => {
@@ -131,5 +162,3 @@ export function getWeightsForConfig(
 ): Record<ScoreDimension, number> {
   return computeWeights(config, platformId);
 }
-
-export { DIMENSIONS };

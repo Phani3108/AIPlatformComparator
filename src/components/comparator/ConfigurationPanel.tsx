@@ -14,13 +14,19 @@ import {
   Box,
   Chip,
   Button,
+  ToggleButtonGroup,
+  ToggleButton,
 } from '@mui/material';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
-import type { UserConfig, WorkloadType, DataGravity, SecurityLevel, DeploymentPreference, GovernanceRequirement } from '@/lib/platform/types';
+import CloudIcon from '@mui/icons-material/Cloud';
+import DesktopWindowsIcon from '@mui/icons-material/DesktopWindows';
+import type { UserConfig, PlatformCategory, WorkloadType, DataGravity, ComputerUseCase, SecurityLevel, DeploymentPreference, GovernanceRequirement } from '@/lib/platform/types';
 
 interface Props {
   config: UserConfig;
+  category: PlatformCategory;
+  onCategoryChange: (category: PlatformCategory) => void;
   onChange: (config: UserConfig) => void;
   onDemo: () => void;
 }
@@ -59,6 +65,14 @@ const GOVERNANCE_OPTIONS: { value: GovernanceRequirement; label: string }[] = [
   { value: 'high', label: 'High' },
 ];
 
+const COMPUTER_USE_CASE_OPTIONS: { value: ComputerUseCase; label: string; desc: string }[] = [
+  { value: 'scraping', label: 'Web Scraping', desc: 'Data extraction from websites' },
+  { value: 'form_fill', label: 'Form Fill', desc: 'Automated form submission' },
+  { value: 'data_entry', label: 'Data Entry', desc: 'Repetitive data input tasks' },
+  { value: 'research', label: 'Research', desc: 'Multi-source research & summarization' },
+  { value: 'qa_testing', label: 'QA Testing', desc: 'Automated testing & validation' },
+];
+
 const DEFAULT_CONFIG: UserConfig = {
   workloadType: 'rag',
   dataGravity: 'bigquery',
@@ -67,11 +81,26 @@ const DEFAULT_CONFIG: UserConfig = {
   governanceRequirement: 'medium',
 };
 
-export { DEFAULT_CONFIG };
+const DEFAULT_CU_CONFIG: UserConfig = {
+  workloadType: 'computer_use',
+  dataGravity: 'neutral',
+  computerUseCase: 'research',
+  securityLevel: 'enterprise',
+  deploymentPreference: 'fully_managed',
+  governanceRequirement: 'medium',
+};
 
-export default function ConfigurationPanel({ config, onChange, onDemo }: Props) {
+export { DEFAULT_CONFIG, DEFAULT_CU_CONFIG };
+
+export default function ConfigurationPanel({ config, category, onCategoryChange, onChange, onDemo }: Props) {
   const update = <K extends keyof UserConfig>(key: K, value: UserConfig[K]) => {
     onChange({ ...config, [key]: value });
+  };
+
+  const handleCategoryChange = (_: unknown, val: PlatformCategory | null) => {
+    if (val && val !== category) {
+      onCategoryChange(val);
+    }
   };
 
   return (
@@ -81,44 +110,97 @@ export default function ConfigurationPanel({ config, onChange, onDemo }: Props) 
           <Box>
             <Typography variant="h6">Platform Configuration</Typography>
             <Typography variant="body2" color="text.secondary">
-              Define your workload and enterprise requirements
+              {category === 'computer_use' ? 'Evaluate computer-use agents' : 'Define your workload and enterprise requirements'}
             </Typography>
           </Box>
-          <Chip label="5 Engines" color="primary" size="small" variant="outlined" />
+          <Chip
+            label={category === 'computer_use' ? '6 Engines' : '5 Engines'}
+            color="primary"
+            size="small"
+            variant="outlined"
+          />
         </Box>
 
-        <FormControl fullWidth size="small">
-          <InputLabel>Workload Type</InputLabel>
-          <Select
-            value={config.workloadType}
-            label="Workload Type"
-            onChange={(e) => update('workloadType', e.target.value as WorkloadType)}
-          >
-            {WORKLOAD_OPTIONS.map((opt) => (
-              <MenuItem key={opt.value} value={opt.value}>
-                <Box>
-                  <Typography variant="body2" fontWeight={500}>{opt.label}</Typography>
-                  <Typography variant="caption" color="text.secondary">{opt.desc}</Typography>
-                </Box>
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        <ToggleButtonGroup
+          value={category}
+          exclusive
+          onChange={handleCategoryChange}
+          fullWidth
+          size="small"
+          sx={{
+            '& .MuiToggleButton-root': {
+              textTransform: 'none',
+              fontWeight: 500,
+              fontSize: '0.8rem',
+            },
+          }}
+        >
+          <ToggleButton value="cloud_ai">
+            <CloudIcon sx={{ mr: 0.5, fontSize: 18 }} />
+            Cloud AI
+          </ToggleButton>
+          <ToggleButton value="computer_use">
+            <DesktopWindowsIcon sx={{ mr: 0.5, fontSize: 18 }} />
+            Computer-Use
+          </ToggleButton>
+        </ToggleButtonGroup>
 
-        <FormControl fullWidth size="small">
-          <InputLabel>Data Gravity</InputLabel>
-          <Select
-            value={config.dataGravity}
-            label="Data Gravity"
-            onChange={(e) => update('dataGravity', e.target.value as DataGravity)}
-          >
-            {DATA_GRAVITY_OPTIONS.map((opt) => (
-              <MenuItem key={opt.value} value={opt.value}>
-                {opt.label}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        {category === 'cloud_ai' && (
+          <FormControl fullWidth size="small">
+            <InputLabel>Workload Type</InputLabel>
+            <Select
+              value={config.workloadType}
+              label="Workload Type"
+              onChange={(e) => update('workloadType', e.target.value as WorkloadType)}
+            >
+              {WORKLOAD_OPTIONS.map((opt) => (
+                <MenuItem key={opt.value} value={opt.value}>
+                  <Box>
+                    <Typography variant="body2" fontWeight={500}>{opt.label}</Typography>
+                    <Typography variant="caption" color="text.secondary">{opt.desc}</Typography>
+                  </Box>
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        )}
+
+        {category === 'computer_use' && (
+          <FormControl fullWidth size="small">
+            <InputLabel>Primary Use Case</InputLabel>
+            <Select
+              value={config.computerUseCase ?? 'research'}
+              label="Primary Use Case"
+              onChange={(e) => update('computerUseCase', e.target.value as ComputerUseCase)}
+            >
+              {COMPUTER_USE_CASE_OPTIONS.map((opt) => (
+                <MenuItem key={opt.value} value={opt.value}>
+                  <Box>
+                    <Typography variant="body2" fontWeight={500}>{opt.label}</Typography>
+                    <Typography variant="caption" color="text.secondary">{opt.desc}</Typography>
+                  </Box>
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        )}
+
+        {category === 'cloud_ai' && (
+          <FormControl fullWidth size="small">
+            <InputLabel>Data Gravity</InputLabel>
+            <Select
+              value={config.dataGravity}
+              label="Data Gravity"
+              onChange={(e) => update('dataGravity', e.target.value as DataGravity)}
+            >
+              {DATA_GRAVITY_OPTIONS.map((opt) => (
+                <MenuItem key={opt.value} value={opt.value}>
+                  {opt.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        )}
 
         <FormControl fullWidth size="small">
           <InputLabel>Security Level</InputLabel>
@@ -180,7 +262,7 @@ export default function ConfigurationPanel({ config, onChange, onDemo }: Props) 
           <Button
             variant="outlined"
             startIcon={<RestartAltIcon />}
-            onClick={() => onChange(DEFAULT_CONFIG)}
+            onClick={() => onChange(category === 'computer_use' ? DEFAULT_CU_CONFIG : DEFAULT_CONFIG)}
             sx={{ minWidth: 'auto', px: 2 }}
           >
             Reset

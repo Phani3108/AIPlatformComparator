@@ -1,12 +1,18 @@
-import type { PlatformId, Capability, CapabilityEntry } from './types';
+import type { PlatformId, PlatformCategory, Capability, CapabilityEntry } from './types';
 import capabilityData from '@/data/capability_matrix.json';
 
-export function getCapabilities(): Capability[] {
-  return capabilityData.capabilities as Capability[];
+const CLOUD_AI_CATEGORIES = ['Core AI', 'MLOps', 'Enterprise', 'Integration', 'Developer'];
+const COMPUTER_USE_CATEGORIES = ['Computer-Use'];
+
+export function getCapabilities(category?: PlatformCategory): Capability[] {
+  const caps = capabilityData.capabilities as unknown as Capability[];
+  if (!category) return caps;
+  const catSet = category === 'computer_use' ? COMPUTER_USE_CATEGORIES : CLOUD_AI_CATEGORIES;
+  return caps.filter((c) => catSet.includes(c.category));
 }
 
-export function getCapabilitiesByCategory(): Record<string, Capability[]> {
-  const caps = getCapabilities();
+export function getCapabilitiesByCategory(category?: PlatformCategory): Record<string, Capability[]> {
+  const caps = getCapabilities(category);
   const grouped: Record<string, Capability[]> = {};
 
   for (const cap of caps) {
@@ -23,24 +29,29 @@ export function getPlatformCapabilityEntry(
   capability: Capability,
   platformId: PlatformId,
 ): CapabilityEntry {
-  return capability[platformId];
+  const entry = capability[platformId];
+  if (entry && typeof entry === 'object' && 'supported' in entry) {
+    return entry as CapabilityEntry;
+  }
+  return { supported: false, maturity: 'N/A', notes: 'Not available' };
 }
 
-export function computeCoverageScore(platformId: PlatformId): {
+export function computeCoverageScore(platformId: PlatformId, category?: PlatformCategory): {
   supported: number;
   total: number;
   percentage: number;
 } {
-  const caps = getCapabilities();
+  const caps = getCapabilities(category);
   let supported = 0;
 
   for (const cap of caps) {
-    if (cap[platformId].supported) supported++;
+    const entry = getPlatformCapabilityEntry(cap, platformId);
+    if (entry.supported) supported++;
   }
 
   return {
     supported,
     total: caps.length,
-    percentage: Math.round((supported / caps.length) * 100),
+    percentage: caps.length > 0 ? Math.round((supported / caps.length) * 100) : 0,
   };
 }

@@ -1,7 +1,7 @@
 {
   "meta": {
-    "version": "1.0.0",
-    "updatedAt": "2026-03-05",
+    "version": "2.0.0",
+    "updatedAt": "2026-04-17",
     "methodology": "Weights derived from enterprise platform evaluation frameworks. Modifiers reflect common enterprise decision patterns.",
     "disclaimer": "Weights are configurable. Edit this file to match your organisation's priorities."
   },
@@ -17,7 +17,13 @@
     "cost_predictability": 0.9,
     "model_evaluation": 0.9,
     "data_integration": 1.0,
-    "multi_region": 0.8
+    "multi_region": 0.8,
+    "task_coverage": 1.2,
+    "reliability_at_n_steps": 1.3,
+    "cost_per_task": 1.0,
+    "security_posture": 1.1,
+    "human_in_loop": 1.0,
+    "it_approvability": 1.1
   },
   "workload_modifiers": {
     "chatbot": {
@@ -54,6 +60,42 @@
       "developer_productivity": 0.3,
       "model_ecosystem": 0.2,
       "governance": 0.1
+    },
+    "computer_use": {
+      "task_coverage": 0.5,
+      "reliability_at_n_steps": 0.5,
+      "security_posture": 0.4,
+      "human_in_loop": 0.3,
+      "it_approvability": 0.3,
+      "cost_per_task": 0.2
+    }
+  },
+  "computer_use_case_modifiers": {
+    "scraping": {
+      "task_coverage": 0.3,
+      "cost_per_task": 0.4,
+      "reliability_at_n_steps": 0.2
+    },
+    "form_fill": {
+      "reliability_at_n_steps": 0.5,
+      "security_posture": 0.3,
+      "human_in_loop": 0.2
+    },
+    "data_entry": {
+      "reliability_at_n_steps": 0.5,
+      "cost_per_task": 0.3,
+      "task_coverage": 0.2
+    },
+    "research": {
+      "task_coverage": 0.5,
+      "reliability_at_n_steps": 0.3,
+      "cost_per_task": 0.1
+    },
+    "qa_testing": {
+      "reliability_at_n_steps": 0.5,
+      "task_coverage": 0.3,
+      "it_approvability": 0.3,
+      "security_posture": 0.2
     }
   },
   "data_gravity_modifiers": {
@@ -72,13 +114,18 @@
     "standard": {},
     "enterprise": {
       "security": 0.5,
-      "governance": 0.3
+      "governance": 0.3,
+      "security_posture": 0.3,
+      "it_approvability": 0.3
     },
     "highly_regulated": {
       "security": 1.0,
       "governance": 0.8,
       "multi_region": 0.3,
-      "observability": 0.2
+      "observability": 0.2,
+      "security_posture": 0.6,
+      "it_approvability": 0.5,
+      "human_in_loop": 0.3
     }
   },
   "deployment_modifiers": {
@@ -104,7 +151,9 @@
     "high": {
       "governance": 0.7,
       "security": 0.3,
-      "observability": 0.2
+      "observability": 0.2,
+      "it_approvability": 0.3,
+      "human_in_loop": 0.2
     }
   }
 }

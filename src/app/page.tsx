@@ -18,6 +18,7 @@ import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import HubIcon from '@mui/icons-material/Hub';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import DesktopWindowsIcon from '@mui/icons-material/DesktopWindows';
 
 const ACCENT_TEAL = '#00bfa5';
 const ACCENT_CORAL = '#ff6d00';
@@ -57,6 +58,12 @@ export default function Home() {
       color: ACCENT_TEAL,
       title: 'Capability Matrix',
       desc: '14-capability coverage comparison across RAG tooling, agent frameworks, evaluation, and governance.',
+    },
+    {
+      icon: <DesktopWindowsIcon />,
+      color: '#d97706',
+      title: 'Computer-Use Agent Evaluator',
+      desc: 'Evaluate 5 computer-use agents across task coverage, reliability, cost per task, security posture, and IT approvability.',
     },
   ];
 
@@ -434,31 +441,62 @@ export default function Home() {
         </Container>
       </Box>
 
-      {/* Suite Section */}
-      <Box sx={{ bgcolor: '#f8f9fa', py: 6 }}>
+      {/* Enterprise GenAI Strategy Console */}
+      <Box sx={{ bgcolor: '#f8f9fa', py: { xs: 6, md: 8 } }}>
         <Container maxWidth="md" sx={{ textAlign: 'center' }}>
-          <Typography variant="overline" sx={{ color: '#5f6368', letterSpacing: 1.5, fontWeight: 600 }}>
-            AI INFRASTRUCTURE DECISION SUITE
+          <Typography variant="overline" sx={{ color: '#4285f4', fontWeight: 700, letterSpacing: 1.5, display: 'block', mb: 1 }}>
+            ENTERPRISE GENAI STRATEGY CONSOLE
           </Typography>
-          <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap', mt: 2 }}>
+          <Typography variant="h5" sx={{ fontWeight: 700, mb: 4, color: '#202124' }}>
+            AI Infrastructure Decision Suite
+          </Typography>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 1.5 }}>
+            {[
+              { label: 'GenAI Cost Simulator', href: 'https://github.com/Phani3108/GenAICostCalulator', active: false },
+              { label: 'AI Platform Decision Engine', href: 'https://github.com/Phani3108/AIPlatformComparator', active: true },
+              { label: 'Vertex AI Architecture Generator', href: 'https://github.com/Phani3108/VertexAIArchitectureGenerator', active: false },
+              { label: 'Enterprise AI Adoption Analyzer', href: 'https://github.com/Phani3108/Enterprise-AI-Analyzer---Banking', active: false },
+              { label: 'AI Product Strategy Lab', href: 'https://github.com/Phani3108/AI-Product-Strategy-Lab---Financial-Institutions', active: false },
+            ].map((tool) => (
+              <Chip
+                key={tool.label}
+                label={tool.label}
+                component="a"
+                href={tool.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                clickable
+                sx={{
+                  fontWeight: tool.active ? 700 : 500,
+                  fontSize: '0.85rem',
+                  py: 2.5,
+                  bgcolor: tool.active ? '#4285f4' : 'white',
+                  color: tool.active ? 'white' : '#202124',
+                  border: tool.active ? '2px solid #4285f4' : '1px solid #dadce0',
+                  '&:hover': { bgcolor: tool.active ? '#3367d6' : '#f1f3f4' },
+                  textDecoration: 'none',
+                }}
+              />
+            ))}
+          </Box>
+          <Box sx={{ mt: 3 }}>
             <Chip
-              label="Tool 1: GenAI Cost Simulator"
-              variant="outlined"
-              sx={{ borderColor: '#dadce0' }}
-            />
-            <Chip
-              label="Tool 2: Platform Decision Engine"
+              label="⬡ Enterprise GenAI Console"
+              component="a"
+              href="https://github.com/Phani3108/Enterprise-GenAI-Console"
+              target="_blank"
+              rel="noopener noreferrer"
+              clickable
               sx={{
-                bgcolor: '#e8f0fe',
-                color: '#1a73e8',
-                fontWeight: 600,
-                border: '1px solid #4285f4',
+                fontWeight: 700,
+                fontSize: '0.9rem',
+                py: 2.5,
+                px: 1,
+                bgcolor: ACCENT_TEAL,
+                color: 'white',
+                '&:hover': { bgcolor: '#00a68a' },
+                textDecoration: 'none',
               }}
-            />
-            <Chip
-              label="Tool 3: Architecture Generator"
-              variant="outlined"
-              sx={{ borderColor: '#dadce0' }}
             />
           </Box>
         </Container>

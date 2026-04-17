@@ -36,7 +36,33 @@ export default function ScenarioComparison({ scored }: Props) {
   const left = scored.find((s) => s.platform.id === leftId);
   const right = scored.find((s) => s.platform.id === rightId);
 
-  if (!left || !right) return null;
+  if (!left || !right) {
+    return (
+      <Card>
+        <CardContent>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
+            <CompareArrowsIcon sx={{ color: '#5f6368' }} />
+            <Typography variant="h6">Platform Comparison</Typography>
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: 200,
+              bgcolor: '#f8f9fa',
+              borderRadius: 1,
+              border: '1px dashed #dadce0',
+            }}
+          >
+            <Typography variant="body2" color="text.secondary">
+              Select two different platforms to compare.
+            </Typography>
+          </Box>
+        </CardContent>
+      </Card>
+    );
+  }
 
   const dimensions = Object.keys(DIMENSION_LABELS) as ScoreDimension[];
   const leftLock = analyzeLockIn(leftId);

@@ -36,6 +36,11 @@ export function generateArchitectureDiagram(
     vertex_ai: 'Google Vertex AI',
     azure_openai: 'Azure OpenAI',
     aws_bedrock: 'AWS Bedrock',
+    claude_computer_use: 'Claude Computer Use',
+    browserbase: 'Browserbase',
+    manus: 'Manus AI',
+    replit_agent: 'Replit Agent',
+    cursor_agent: 'Cursor AI',
   };
 
   const workloadNames: Record<WorkloadType, string> = {
@@ -45,6 +50,7 @@ export function generateArchitectureDiagram(
     multimodal: 'Multimodal AI',
     fine_tuned: 'Fine-Tuned Model',
     copilot: 'AI Copilot',
+    computer_use: 'Computer-Use Agent',
   };
 
   return [

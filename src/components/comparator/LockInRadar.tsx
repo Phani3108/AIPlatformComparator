@@ -26,7 +26,7 @@ import {
   Tooltip,
 } from 'recharts';
 import { compareAllLockIn } from '@/lib/platform/lockin';
-import type { LockInAnalysis } from '@/lib/platform/types';
+import type { LockInAnalysis, PlatformCategory } from '@/lib/platform/types';
 import platformsData from '@/data/platforms.json';
 
 const platformColors: Record<string, string> = {};
@@ -54,8 +54,8 @@ function LevelChip({ level }: { level: string }) {
   );
 }
 
-export default function LockInRadar() {
-  const analyses = compareAllLockIn();
+export default function LockInRadar({ category = 'cloud_ai' }: { category?: PlatformCategory }) {
+  const analyses = compareAllLockIn(category);
 
   const dimensions = analyses[0].dimensions.map((d) => d.dimension);
   const radarData = dimensions.map((dim) => {

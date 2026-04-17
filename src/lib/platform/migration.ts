@@ -81,6 +81,73 @@ const MIGRATION_PATHS: Record<string, MigrationProfile> = {
       { area: 'Monitoring', difficulty: 'Medium', description: 'Replace CloudWatch with Azure Monitor + App Insights' },
     ],
   },
+  // Computer-Use Agent migration paths
+  claude_computer_use_to_browserbase: {
+    overallScore: 6,
+    estimatedEffortWeeks: '4–6',
+    challenges: [
+      { area: 'Agent Runtime', difficulty: 'High', description: 'Replace Anthropic Computer Use with external LLM + Browserbase; fundamentally different architecture' },
+      { area: 'Task Logic', difficulty: 'Medium', description: 'Rewrite from prompt-based to Playwright/Puppeteer scripted automation' },
+      { area: 'Visual Understanding', difficulty: 'High', description: 'Claude\'s native screenshot reasoning has no direct equivalent; requires DOM selectors instead' },
+      { area: 'Auth & Access', difficulty: 'Low', description: 'API key migration is straightforward' },
+      { area: 'Monitoring', difficulty: 'Low', description: 'Browserbase provides session recording; comparable observability' },
+    ],
+  },
+  claude_computer_use_to_manus: {
+    overallScore: 5,
+    estimatedEffortWeeks: '3–5',
+    challenges: [
+      { area: 'Agent Runtime', difficulty: 'Medium', description: 'Both are autonomous agents; Manus uses its own planning engine vs Claude\'s reasoning' },
+      { area: 'Task Specification', difficulty: 'Low', description: 'Both accept natural language task descriptions' },
+      { area: 'Security Controls', difficulty: 'High', description: 'Claude has more granular safety controls; Manus is more permissive' },
+      { area: 'Enterprise Integration', difficulty: 'Medium', description: 'Claude has better enterprise API controls; Manus lacks SSO' },
+      { area: 'Output Format', difficulty: 'Low', description: 'Both produce standard outputs; task results are similar' },
+    ],
+  },
+  browserbase_to_claude_computer_use: {
+    overallScore: 7,
+    estimatedEffortWeeks: '5–8',
+    challenges: [
+      { area: 'Agent Runtime', difficulty: 'High', description: 'Replace scripted Playwright automation with prompt-based Computer Use; paradigm shift' },
+      { area: 'Task Logic', difficulty: 'High', description: 'Convert deterministic scripts to prompt engineering; reliability characteristics change' },
+      { area: 'Cost Model', difficulty: 'Medium', description: 'Move from per-session to per-token pricing; cost structure changes significantly' },
+      { area: 'Scalability', difficulty: 'Medium', description: 'Claude is sequential; Browserbase can parallelize; architecture change needed' },
+      { area: 'Browser Features', difficulty: 'Medium', description: 'Lose anti-detection, proxy, and stealth features' },
+    ],
+  },
+  browserbase_to_manus: {
+    overallScore: 5,
+    estimatedEffortWeeks: '3–5',
+    challenges: [
+      { area: 'Agent Runtime', difficulty: 'Medium', description: 'Replace BYO-LLM + Playwright with Manus planning engine' },
+      { area: 'Task Logic', difficulty: 'Medium', description: 'Convert scripts to natural language task descriptions' },
+      { area: 'Browser Control', difficulty: 'Low', description: 'Manus has built-in browser; less fine-grained but more autonomous' },
+      { area: 'Enterprise Features', difficulty: 'High', description: 'Lose team RBAC and session management capabilities' },
+      { area: 'Monitoring', difficulty: 'Medium', description: 'Lose session recording/replay; Manus has basic execution logs' },
+    ],
+  },
+  manus_to_claude_computer_use: {
+    overallScore: 6,
+    estimatedEffortWeeks: '4–6',
+    challenges: [
+      { area: 'Agent Runtime', difficulty: 'Medium', description: 'Replace Manus planning engine with Claude prompt engineering' },
+      { area: 'Desktop Automation', difficulty: 'Medium', description: 'Claude Computer Use supports desktop but excels at browser; some desktop tasks may need adjustment' },
+      { area: 'Security Controls', difficulty: 'Low', description: 'Claude has stronger safety features; upgrade in security posture' },
+      { area: 'Cost Model', difficulty: 'Medium', description: 'Move from per-task to per-token pricing' },
+      { area: 'Enterprise Integration', difficulty: 'Low', description: 'Claude API has better enterprise controls; improvement' },
+    ],
+  },
+  manus_to_browserbase: {
+    overallScore: 6,
+    estimatedEffortWeeks: '5–7',
+    challenges: [
+      { area: 'Agent Runtime', difficulty: 'High', description: 'Replace autonomous planner with scripted Playwright automation + external LLM' },
+      { area: 'Desktop Features', difficulty: 'High', description: 'Lose all desktop automation capability; browser-only' },
+      { area: 'Task Specification', difficulty: 'High', description: 'Move from natural language to scripted automation; more precise but less flexible' },
+      { area: 'Monitoring', difficulty: 'Low', description: 'Gain session recording and replay capabilities' },
+      { area: 'Enterprise Features', difficulty: 'Low', description: 'Gain team RBAC and API management' },
+    ],
+  },
 };
 
 function computeDifficulty(score: number): 'Low' | 'Medium' | 'High' | 'Very High' {
